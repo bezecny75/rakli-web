@@ -1,8 +1,20 @@
 # rakli-web
 
-Webový projekt `rakli-web`.
+Statický web pro Rakli s.r.o. (ordinace praktického lékaře), migrace z WordPressu.
+Viz `MIGRATION_PLAN.md` a `.agent/` pro detaily a stav projektu.
 
-## Lokální vývoj
+## Založení repa (lokálně nebo na serveru)
 
-Projekt je zatím inicializovaný jako prázdný Git repozitář. Technologický stack a způsob spuštění budou doplněné po upřesnění zadání.
+```bash
+cd rakli-redesign
+git init
+git add .
+git commit -m "Initial project scaffolding: migration plan + agent docs"
+git branch -M main
+git remote add origin git@github.com:<tvuj-ucet>/rakli-web.git
+# (repo musí být na GitHubu předem založené jako "rakli-web")
+git push -u origin main
+```
 
+## Další krok
+`npm create astro@latest` v tomto adresáři, viz `.agent/NEXT_STEPS.md`.
