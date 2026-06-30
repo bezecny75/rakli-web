@@ -79,7 +79,7 @@ set cmd:fail-exit yes
 set ftp:ssl-allow yes
 $CONNECT_OPTIONS
 open -u "$FTP_USER","$FTP_PASS" "$FTP_PROTOCOL://$FTP_HOST"
-mkdir -p "$FTP_REMOTE_DIR"
+mkdir -pf "$FTP_REMOTE_DIR"
 cd "$FTP_REMOTE_DIR"
 mirror --reverse --verbose $DRY $DELETE "$DIST_DIR" "$FTP_REMOTE_DIR"
 bye

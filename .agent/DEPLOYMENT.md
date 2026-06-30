@@ -42,6 +42,12 @@ FTP_REMOTE_DIR=/rakli.cz/www/_new
 
 Produkční WordPress běží v `/rakli.cz/www`; dokud se deployuje do `/_new/`, produkce není ovlivněná.
 
+Aktuální testovací URL:
+
+```text
+https://rakli.cz/_new/
+```
+
 ## Co nepublikovat
 - `.env`
 - `.git`

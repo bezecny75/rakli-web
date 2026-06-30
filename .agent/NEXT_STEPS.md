@@ -5,7 +5,7 @@
 - [x] Připravit základní `.env.example`
 - [x] Připravit `scripts/deploy.sh` pro SFTP deploy statického buildu `dist/` na `rakli.cz`
 - [x] Připravit lokální `.env` šablonu pro doplnění SFTP údajů
-- [ ] `npm create astro@latest` + základní struktura
+- [x] `npm create astro@latest` + základní struktura
 - [x] Přidat `.gitignore`, `.env.example`
 - [ ] Vytvořit content collections: hours, news, faq, pricing, services, contact
 - [ ] Naplnit content soubory daty z aktuálního rakli.cz
@@ -17,7 +17,10 @@
 - [x] Nastavit testovací deploy cíl na `/rakli.cz/www/_new`
 - [x] Ověřit SFTP přístup do testovací složky
 - [x] Napsat `scripts/deploy.sh` (build + upload)
-- [ ] Testovací deploy do podsložky `/_new/`
+- [x] Testovací deploy do podsložky `/_new/`
+- [x] Ověřit `https://rakli.cz/_new/` a neporušený WordPress na hlavní doméně
+- [ ] Aktualizovat npm na verzi kompatibilní s Astro 7, nebo potvrdit ponechání stávající verze, pokud buildy dál procházejí
+- [ ] Navrhnout základní layout ordinace a content strukturu
 - [ ] Zazálohovat WP DB + soubory před ostrým přepnutím
 - [ ] Ostrý deploy na produkci
 - [ ] Napojit repo do agent2telegram bridge

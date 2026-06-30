@@ -11,10 +11,12 @@ main
 - Obsah aktuálního webu zmapován (sekce: Aktuality, Zdravotní péče, Ordinační hodiny, Kontaktní formulář, FAQ, Kontakt + podstránky Poskytované služby, Ceník, Aktuality, Objednávání, Očkování, O nás)
 - Repo je založeno a napojené na GitHub.
 - Agent dokumentace je přesunutá do `.agent/`, podobně jako v projektu tenis.
-- Astro projekt zatím NENÍ inicializován.
-- `scripts/deploy.sh` je připravený jako deploy z `dist/` přes SFTP na `rakli.cz`, ale zatím není otestovaný bez reálných přístupů a buildu.
+- Astro projekt je inicializovaný minimální šablonou.
+- `astro.config.mjs` má dočasně nastavené `base: '/_new/'`, aby náhled fungoval v testovací podsložce.
+- `scripts/deploy.sh` je otestovaný pro deploy z `dist/` přes SFTP na `rakli.cz` do `/rakli.cz/www/_new`.
 - Kontaktní formulář aktuálně bez backendu (posílá na mail přes WP) — nutno nahradit
 - Testovací deploy cíl v lokálním `.env`: `/rakli.cz/www/_new`; produkční WordPress zůstává v `/rakli.cz/www`.
+- Testovací náhled běží na `https://rakli.cz/_new/`.
 
 ## Last Completed Work
 - 2026-06-30
@@ -22,18 +24,21 @@ main
 - Inicializován Git repozitář a push na GitHub.
 - Sesynchronizované plánovací dokumenty, následně přesunuté do `.agent/`.
 - Odstraněný omylem přenesený tenisový deploy helper; `deploy.sh` upravený pro statický Astro výstup `dist/` a SFTP na `rakli.cz`.
-- Testy: `git diff --check` před synchronizačním commitem; SFTP listing `/rakli.cz/www/_new` ověřený.
+- Inicializován Astro projekt, vytvořena první testovací stránka a nasazena do `/_new/`.
+- Ověřeno: `npm run build`, lokální preview `/_new/`, deploy dry-run, deploy apply, HTTP 200 na `https://rakli.cz/_new/`.
+- Ověřeno: kořen `https://rakli.cz/` po redirectu stále vrací WordPress.
 
 ## Next Steps
-1. Inicializovat Astro projekt (`npm create astro@latest`)
-2. Migrovat obsah z rakli.cz do content collections (hodiny, aktuality, FAQ, ceník, služby, kontakt)
-3. Nahradit kontaktní formulář přes Web3Forms a otestovat SFTP deploy do `/rakli.cz/www/_new`
+1. Vytvořit základní layout a content strukturu pro ordinaci.
+2. Migrovat obsah z rakli.cz do content collections (hodiny, aktuality, FAQ, ceník, služby, kontakt).
+3. Nahradit kontaktní formulář přes Web3Forms.
 
 ## Known Issues
 - Kontaktní formulář nemá vlastní backend, jen WP mail — musí se nahradit před vypnutím WP
 - Hosting nemá SSH, deploy musí jít přes FTP/SFTP, ne git pull na serveru
 - Není ještě definovaná "content map" pro Telegram agenta (který text patří do kterého souboru)
 - Lokální `.env` obsahuje SFTP údaje a míří na testovací složku `/rakli.cz/www/_new`; soubor je ignorovaný Gitem.
+- `npm install` hlásí upozornění, že lokální npm je 9.2.0 a Astro 7 vyžaduje npm >= 9.6.5; build přesto prošel. Před delší prací je vhodné npm aktualizovat.
 
 ## Important Decisions
 - Zvolen statický generátor (Astro) místo zůstání na WP — kolega nepotřebuje WP editor, jen diktuje změny do Telegramu, takže CMS vrstva je zbytečná
