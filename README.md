@@ -1,7 +1,7 @@
 # rakli-web
 
 Statický web pro Rakli s.r.o. (ordinace praktického lékaře), migrace z WordPressu.
-Viz `MIGRATION_PLAN.md` a `.agent/` pro detaily a stav projektu.
+Viz `.agent/MIGRATION_PLAN.md` a `.agent/` pro detaily a stav projektu.
 
 ## Založení repa (lokálně nebo na serveru)
 

@@ -1,17 +1,23 @@
-# Další kroky — rakli-web
+# Next Steps
 
-- [x] Inicializovat Git repozitář.
-- [x] Nastavit GitHub remote.
-- [x] Přidat základní `.gitignore`.
-- [x] Přidat projektové poznámky pro navazování práce.
-- [x] Sesynchronizovat uživatelem nahrané plánovací dokumenty.
-- [ ] Inicializovat Astro projekt v tomto adresáři.
-- [ ] Přidat `.env.example` bez tajných údajů.
-- [ ] Vytvořit základní content strukturu: ordinační hodiny, aktuality, FAQ, ceník, služby, kontakt.
-- [ ] Migrovat obsah z aktuálního `rakli.cz`.
-- [ ] Připravit kontaktní formulář přes Web3Forms.
-- [ ] Připravit `scripts/deploy.sh` pro FTP/SFTP deploy.
-- [ ] Nastavit skutečné FTP/SFTP přístupy do necommitovaného `.env`.
-- [ ] Otestovat build a první testovací deploy.
-- [ ] Definovat content mapu pro Telegram agenta.
-
+- [x] Založit GitHub repo `rakli-web`
+- [x] Přesunout agent dokumentaci do `.agent/`
+- [x] Připravit základní `.env.example`
+- [x] Připravit obecný `scripts/deploy.sh` pro statický build `dist/`
+- [ ] `npm create astro@latest` + základní struktura
+- [x] Přidat `.gitignore`, `.env.example`
+- [ ] Vytvořit content collections: hours, news, faq, pricing, services, contact
+- [ ] Naplnit content soubory daty z aktuálního rakli.cz
+- [ ] Stáhnout a optimalizovat obrázky z wp-content/uploads
+- [ ] Postavit layout/sekce webu podle aktuálního designu
+- [ ] Založit účet Web3Forms, napojit kontaktní formulář
+- [ ] Otestovat doručení mailu z formuláře
+- [ ] Vyžádat FTP/SFTP přístupy (host, user, cesta, typ) — heslo mimo chat
+- [ ] Napsat `scripts/deploy.sh` (build + upload)
+- [ ] Testovací deploy do podsložky /test/
+- [ ] Zazálohovat WP DB + soubory před ostrým přepnutím
+- [ ] Ostrý deploy na produkci
+- [ ] Napojit repo do agent2telegram bridge
+- [ ] Definovat content map (text → soubor) pro agenta
+- [ ] Otestovat 3 reálné scénáře úprav přes Telegram
+- [ ] Po 2-4 týdnech provozu — deaktivovat WordPress na hostingu
