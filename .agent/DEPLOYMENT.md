@@ -34,6 +34,14 @@ chmod 600 .env
 
 Do `.env` doplň SFTP uživatele, heslo a cílovou cestu na hostingu. Soubor `.env` je ignorovaný Gitem.
 
+Aktuální bezpečný testovací cíl:
+
+```bash
+FTP_REMOTE_DIR=/rakli.cz/www/_new
+```
+
+Produkční WordPress běží v `/rakli.cz/www`; dokud se deployuje do `/_new/`, produkce není ovlivněná.
+
 ## Co nepublikovat
 - `.env`
 - `.git`

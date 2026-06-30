@@ -14,6 +14,7 @@ main
 - Astro projekt zatím NENÍ inicializován.
 - `scripts/deploy.sh` je připravený jako deploy z `dist/` přes SFTP na `rakli.cz`, ale zatím není otestovaný bez reálných přístupů a buildu.
 - Kontaktní formulář aktuálně bez backendu (posílá na mail přes WP) — nutno nahradit
+- Testovací deploy cíl v lokálním `.env`: `/rakli.cz/www/_new`; produkční WordPress zůstává v `/rakli.cz/www`.
 
 ## Last Completed Work
 - 2026-06-30
@@ -21,18 +22,18 @@ main
 - Inicializován Git repozitář a push na GitHub.
 - Sesynchronizované plánovací dokumenty, následně přesunuté do `.agent/`.
 - Odstraněný omylem přenesený tenisový deploy helper; `deploy.sh` upravený pro statický Astro výstup `dist/` a SFTP na `rakli.cz`.
-- Testy: `git diff --check` před synchronizačním commitem.
+- Testy: `git diff --check` před synchronizačním commitem; SFTP listing `/rakli.cz/www/_new` ověřený.
 
 ## Next Steps
 1. Inicializovat Astro projekt (`npm create astro@latest`)
 2. Migrovat obsah z rakli.cz do content collections (hodiny, aktuality, FAQ, ceník, služby, kontakt)
-3. Nahradit kontaktní formulář přes Web3Forms a otestovat SFTP deploy
+3. Nahradit kontaktní formulář přes Web3Forms a otestovat SFTP deploy do `/rakli.cz/www/_new`
 
 ## Known Issues
 - Kontaktní formulář nemá vlastní backend, jen WP mail — musí se nahradit před vypnutím WP
 - Hosting nemá SSH, deploy musí jít přes FTP/SFTP, ne git pull na serveru
 - Není ještě definovaná "content map" pro Telegram agenta (který text patří do kterého souboru)
-- Lokální `.env` je připravený k doplnění SFTP uživatele, hesla a cílové cesty; soubor je ignorovaný Gitem.
+- Lokální `.env` obsahuje SFTP údaje a míří na testovací složku `/rakli.cz/www/_new`; soubor je ignorovaný Gitem.
 
 ## Important Decisions
 - Zvolen statický generátor (Astro) místo zůstání na WP — kolega nepotřebuje WP editor, jen diktuje změny do Telegramu, takže CMS vrstva je zbytečná

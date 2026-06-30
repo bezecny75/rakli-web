@@ -13,9 +13,11 @@
 - [ ] Postavit layout/sekce webu podle aktuálního designu
 - [ ] Založit účet Web3Forms, napojit kontaktní formulář
 - [ ] Otestovat doručení mailu z formuláře
-- [ ] Doplnit skutečné SFTP přístupy do necommitovaného `.env`
+- [x] Doplnit skutečné SFTP přístupy do necommitovaného `.env`
+- [x] Nastavit testovací deploy cíl na `/rakli.cz/www/_new`
+- [x] Ověřit SFTP přístup do testovací složky
 - [x] Napsat `scripts/deploy.sh` (build + upload)
-- [ ] Testovací deploy do podsložky /test/
+- [ ] Testovací deploy do podsložky `/_new/`
 - [ ] Zazálohovat WP DB + soubory před ostrým přepnutím
 - [ ] Ostrý deploy na produkci
 - [ ] Napojit repo do agent2telegram bridge
