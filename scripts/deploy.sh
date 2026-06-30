@@ -92,6 +92,7 @@ run_lftp_redacted() {
   rc=$?
   set -e
   output="${output//$FTP_PASS/***REDACTED***}"
+  output="$(printf '%s\n' "$output" | sed -E "s#(${FTP_PROTOCOL}://[^/:@]+:)[^@]+@#\\1***REDACTED***@#g")"
   printf '%s\n' "$output"
   return "$rc"
 }
