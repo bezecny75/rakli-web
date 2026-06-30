@@ -3,7 +3,8 @@
 - [x] Založit GitHub repo `rakli-web`
 - [x] Přesunout agent dokumentaci do `.agent/`
 - [x] Připravit základní `.env.example`
-- [x] Připravit obecný `scripts/deploy.sh` pro statický build `dist/`
+- [x] Připravit `scripts/deploy.sh` pro SFTP deploy statického buildu `dist/` na `rakli.cz`
+- [x] Připravit lokální `.env` šablonu pro doplnění SFTP údajů
 - [ ] `npm create astro@latest` + základní struktura
 - [x] Přidat `.gitignore`, `.env.example`
 - [ ] Vytvořit content collections: hours, news, faq, pricing, services, contact
@@ -12,8 +13,8 @@
 - [ ] Postavit layout/sekce webu podle aktuálního designu
 - [ ] Založit účet Web3Forms, napojit kontaktní formulář
 - [ ] Otestovat doručení mailu z formuláře
-- [ ] Vyžádat FTP/SFTP přístupy (host, user, cesta, typ) — heslo mimo chat
-- [ ] Napsat `scripts/deploy.sh` (build + upload)
+- [ ] Doplnit skutečné SFTP přístupy do necommitovaného `.env`
+- [x] Napsat `scripts/deploy.sh` (build + upload)
 - [ ] Testovací deploy do podsložky /test/
 - [ ] Zazálohovat WP DB + soubory před ostrým přepnutím
 - [ ] Ostrý deploy na produkci

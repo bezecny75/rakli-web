@@ -11,18 +11,28 @@ Výstup: `dist/`
 
 ## Publikování
 ```bash
-./scripts/deploy.sh
+./scripts/deploy.sh --dry-run
+./scripts/deploy.sh --apply
 ```
 Skript nahraje obsah `dist/` na hosting přes FTP/SFTP (lftp/rclone), přepíše produkční složku.
 
 ## Konfigurace (.env, necommitovat)
 ```
-FTP_HOST=
+FTP_HOST=rakli.cz
 FTP_USER=
 FTP_PASS=
 FTP_REMOTE_DIR=
-FTP_PROTOCOL=ftp|ftps|sftp
+FTP_PROTOCOL=sftp
 ```
+
+Lokální konfigurace:
+
+```bash
+cp .env.example .env
+chmod 600 .env
+```
+
+Do `.env` doplň SFTP uživatele, heslo a cílovou cestu na hostingu. Soubor `.env` je ignorovaný Gitem.
 
 ## Co nepublikovat
 - `.env`
@@ -35,12 +45,12 @@ FTP_PROTOCOL=ftp|ftps|sftp
 1. Uprav content soubor podle požadavku
 2. `git add . && git commit -m "..."`
 3. `npm run build`
-4. `./scripts/deploy.sh`
+4. `./scripts/deploy.sh --apply`
 5. Pošli do Telegramu: link na živý web + stručný diff co se změnilo
 
 ## Rollback
 ```bash
 git revert <commit>
 npm run build
-./scripts/deploy.sh
+./scripts/deploy.sh --apply
 ```

@@ -12,7 +12,7 @@ main
 - Repo je založeno a napojené na GitHub.
 - Agent dokumentace je přesunutá do `.agent/`, podobně jako v projektu tenis.
 - Astro projekt zatím NENÍ inicializován.
-- `scripts/deploy.sh` je připravený jako obecný deploy z `dist/` přes FTP/FTPS/SFTP, ale zatím není otestovaný bez reálných přístupů a buildu.
+- `scripts/deploy.sh` je připravený jako deploy z `dist/` přes SFTP na `rakli.cz`, ale zatím není otestovaný bez reálných přístupů a buildu.
 - Kontaktní formulář aktuálně bez backendu (posílá na mail přes WP) — nutno nahradit
 
 ## Last Completed Work
@@ -20,25 +20,25 @@ main
 - commit: 90fd70d
 - Inicializován Git repozitář a push na GitHub.
 - Sesynchronizované plánovací dokumenty, následně přesunuté do `.agent/`.
-- Odstraněný omylem přenesený tenisový deploy helper; `deploy.sh` upravený pro statický Astro výstup `dist/`.
+- Odstraněný omylem přenesený tenisový deploy helper; `deploy.sh` upravený pro statický Astro výstup `dist/` a SFTP na `rakli.cz`.
 - Testy: `git diff --check` před synchronizačním commitem.
 
 ## Next Steps
 1. Inicializovat Astro projekt (`npm create astro@latest`)
 2. Migrovat obsah z rakli.cz do content collections (hodiny, aktuality, FAQ, ceník, služby, kontakt)
-3. Nahradit kontaktní formulář přes Web3Forms a otestovat FTP/SFTP deploy
+3. Nahradit kontaktní formulář přes Web3Forms a otestovat SFTP deploy
 
 ## Known Issues
 - Kontaktní formulář nemá vlastní backend, jen WP mail — musí se nahradit před vypnutím WP
 - Hosting nemá SSH, deploy musí jít přes FTP/SFTP, ne git pull na serveru
 - Není ještě definovaná "content map" pro Telegram agenta (který text patří do kterého souboru)
-- FTP/SFTP přístupové údaje zatím nedodány
+- Lokální `.env` je připravený k doplnění SFTP uživatele, hesla a cílové cesty; soubor je ignorovaný Gitem.
 
 ## Important Decisions
 - Zvolen statický generátor (Astro) místo zůstání na WP — kolega nepotřebuje WP editor, jen diktuje změny do Telegramu, takže CMS vrstva je zbytečná
 - Deploy jde rovnou na produkci po každé úpravě (ne přes staging/náhled) — malý web, nízké riziko, Git umožňuje rychlý revert
 - Výjimka: strukturální/rizikové změny (mazání sekcí, nová struktura) agent pošle ke schválení před nasazením
-- Nepoužívat GitHub Actions pro deploy (zatím) — hosting bez SSH, jednodušší je lokální/serverový deploy skript přes FTP
+- Nepoužívat GitHub Actions pro deploy (zatím) — hosting bez SSH shellu, jednodušší je lokální/serverový deploy skript přes SFTP
 - Secrets (FTP heslo) nikdy necommitovat, jen v `.env` s právy 600
 
 ## How To Run
@@ -46,5 +46,6 @@ main
 npm install
 npm run dev      # lokální vývoj
 npm run build    # produkční build do dist/
-./scripts/deploy.sh   # nasazení na hosting (po nastavení .env)
+./scripts/deploy.sh --dry-run
+./scripts/deploy.sh --apply
 ```

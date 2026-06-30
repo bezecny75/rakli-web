@@ -14,11 +14,11 @@ Usage: scripts/deploy.sh [--dry-run] [--apply] [--delete]
 Default is --dry-run. Credentials are loaded from .env or from RAKLI_DEPLOY_ENV.
 
 Required variables:
-  FTP_HOST=example.com
+  FTP_HOST=rakli.cz
   FTP_USER=username
   FTP_PASS=password
   FTP_REMOTE_DIR=/path/to/webroot
-  FTP_PROTOCOL=ftp|ftps|sftp
+  FTP_PROTOCOL=sftp
 
 Safety:
   - uploads only the Astro build output from dist/
@@ -58,6 +58,12 @@ case "$FTP_PROTOCOL" in
   *) echo "FTP_PROTOCOL must be ftp, ftps, or sftp" >&2; exit 1 ;;
 esac
 
+CONNECT_OPTIONS=""
+if [[ "$FTP_PROTOCOL" == "sftp" ]]; then
+  CONNECT_OPTIONS='set sftp:auto-confirm yes
+set sftp:connect-program "ssh -a -x -o PubkeyAuthentication=no"'
+fi
+
 TMP="$(mktemp)"
 chmod 600 "$TMP"
 cleanup() { rm -f "$TMP"; }
@@ -71,6 +77,7 @@ set net:timeout 30
 set net:max-retries 2
 set cmd:fail-exit yes
 set ftp:ssl-allow yes
+$CONNECT_OPTIONS
 open -u "$FTP_USER","$FTP_PASS" "$FTP_PROTOCOL://$FTP_HOST"
 mkdir -p "$FTP_REMOTE_DIR"
 cd "$FTP_REMOTE_DIR"
