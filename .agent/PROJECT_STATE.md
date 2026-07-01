@@ -30,6 +30,8 @@ main
 - Vytvořena první obsahová struktura (`src/content/*.json`) a content map pro Telegram agenta.
 - Postaven první reálný one-page layout ordinace: aktuality, ordinační hodiny, služby, FAQ, kontakt a Web3Forms fallback.
 - Review přes `BEZI-ReviewerTest`: první review našel 2 deploy bezpečnostní nálezy; opraveno a finální re-review PROŠLO bez nálezů.
+- Reviewed build byl nasazen do `https://rakli.cz/_new/`; ověřeno HTTP 200 pro stránku i CSS asset.
+- Produkční WordPress na `https://www.rakli.cz/` po deployi stále běží; ověřený meta generator `WordPress 6.9.4`.
 
 ## Next Steps
 1. Doplnit přesnější obsah z dalších podstránek WordPressu, až nebude blokovat WAF nebo budou dodané exporty.

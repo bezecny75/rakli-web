@@ -22,7 +22,8 @@
 - [ ] Aktualizovat npm na verzi kompatibilní s Astro 7, nebo potvrdit ponechání stávající verze, pokud buildy dál procházejí
 - [x] Navrhnout základní layout ordinace a content strukturu
 - [x] Provést review kódu přes `BEZI-ReviewerTest`
-- [ ] Nasadit aktuální reviewed build do `/_new/`
+- [x] Nasadit aktuální reviewed build do `/_new/`
+- [x] Ověřit HTTP 200 pro `https://rakli.cz/_new/` a CSS asset
 - [ ] Doplnit přesnější obsah z dalších WordPress podstránek nebo exportu
 - [ ] Zazálohovat WP DB + soubory před ostrým přepnutím
 - [ ] Ostrý deploy na produkci
