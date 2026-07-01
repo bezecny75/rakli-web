@@ -53,6 +53,15 @@ set +a
 : "${FTP_REMOTE_DIR:?missing FTP_REMOTE_DIR}"
 : "${FTP_PROTOCOL:?missing FTP_PROTOCOL}"
 
+case "$FTP_REMOTE_DIR" in
+  */_new|*/_new/) ;;
+  *)
+    echo "Refusing deploy outside the staging /_new directory: $FTP_REMOTE_DIR" >&2
+    echo "Set FTP_REMOTE_DIR to a path ending in /_new for this staging workflow." >&2
+    exit 1
+    ;;
+esac
+
 case "$FTP_PROTOCOL" in
   ftp|ftps|sftp) ;;
   *) echo "FTP_PROTOCOL must be ftp, ftps, or sftp" >&2; exit 1 ;;
@@ -71,6 +80,8 @@ trap cleanup EXIT
 
 DRY=""
 [[ "$MODE" == "dry-run" ]] && DRY="--dry-run"
+MKDIR_COMMAND=""
+[[ "$MODE" == "apply" ]] && MKDIR_COMMAND="mkdir -pf \"$FTP_REMOTE_DIR\""
 
 cat >"$TMP" <<EOF
 set net:timeout 30
@@ -79,7 +90,7 @@ set cmd:fail-exit yes
 set ftp:ssl-allow yes
 $CONNECT_OPTIONS
 open -u "$FTP_USER","$FTP_PASS" "$FTP_PROTOCOL://$FTP_HOST"
-mkdir -pf "$FTP_REMOTE_DIR"
+$MKDIR_COMMAND
 cd "$FTP_REMOTE_DIR"
 mirror --reverse --verbose $DRY $DELETE "$DIST_DIR" "$FTP_REMOTE_DIR"
 bye

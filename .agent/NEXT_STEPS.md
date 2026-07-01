@@ -7,11 +7,11 @@
 - [x] Připravit lokální `.env` šablonu pro doplnění SFTP údajů
 - [x] `npm create astro@latest` + základní struktura
 - [x] Přidat `.gitignore`, `.env.example`
-- [ ] Vytvořit content collections: hours, news, faq, pricing, services, contact
-- [ ] Naplnit content soubory daty z aktuálního rakli.cz
+- [x] Vytvořit content soubory: hours, news, faq, pricing, services, contact
+- [x] Naplnit první content soubory daty z dostupného obsahu rakli.cz
 - [ ] Stáhnout a optimalizovat obrázky z wp-content/uploads
-- [ ] Postavit layout/sekce webu podle aktuálního designu
-- [ ] Založit účet Web3Forms, napojit kontaktní formulář
+- [x] Postavit první layout/sekce webu pro testovací náhled
+- [ ] Založit účet Web3Forms a doplnit access key do `.env`
 - [ ] Otestovat doručení mailu z formuláře
 - [x] Doplnit skutečné SFTP přístupy do necommitovaného `.env`
 - [x] Nastavit testovací deploy cíl na `/rakli.cz/www/_new`
@@ -20,7 +20,10 @@
 - [x] Testovací deploy do podsložky `/_new/`
 - [x] Ověřit `https://rakli.cz/_new/` a neporušený WordPress na hlavní doméně
 - [ ] Aktualizovat npm na verzi kompatibilní s Astro 7, nebo potvrdit ponechání stávající verze, pokud buildy dál procházejí
-- [ ] Navrhnout základní layout ordinace a content strukturu
+- [x] Navrhnout základní layout ordinace a content strukturu
+- [x] Provést review kódu přes `BEZI-ReviewerTest`
+- [ ] Nasadit aktuální reviewed build do `/_new/`
+- [ ] Doplnit přesnější obsah z dalších WordPress podstránek nebo exportu
 - [ ] Zazálohovat WP DB + soubory před ostrým přepnutím
 - [ ] Ostrý deploy na produkci
 - [ ] Napojit repo do agent2telegram bridge

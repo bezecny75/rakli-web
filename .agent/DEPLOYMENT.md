@@ -48,6 +48,9 @@ Aktuální testovací URL:
 https://rakli.cz/_new/
 ```
 
+Deploy skript má hard guard: odmítne cílovou cestu, která nekončí na `/_new`.
+Tím se snižuje riziko omylu při práci se stávající produkční WordPress instalací.
+
 ## Co nepublikovat
 - `.env`
 - `.git`

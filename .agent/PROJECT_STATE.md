@@ -27,11 +27,14 @@ main
 - Inicializován Astro projekt, vytvořena první testovací stránka a nasazena do `/_new/`.
 - Ověřeno: `npm run build`, lokální preview `/_new/`, deploy dry-run, deploy apply, HTTP 200 na `https://rakli.cz/_new/`.
 - Ověřeno: kořen `https://rakli.cz/` po redirectu stále vrací WordPress.
+- Vytvořena první obsahová struktura (`src/content/*.json`) a content map pro Telegram agenta.
+- Postaven první reálný one-page layout ordinace: aktuality, ordinační hodiny, služby, FAQ, kontakt a Web3Forms fallback.
+- Review přes `BEZI-ReviewerTest`: první review našel 2 deploy bezpečnostní nálezy; opraveno a finální re-review PROŠLO bez nálezů.
 
 ## Next Steps
-1. Vytvořit základní layout a content strukturu pro ordinaci.
-2. Migrovat obsah z rakli.cz do content collections (hodiny, aktuality, FAQ, ceník, služby, kontakt).
-3. Nahradit kontaktní formulář přes Web3Forms.
+1. Doplnit přesnější obsah z dalších podstránek WordPressu, až nebude blokovat WAF nebo budou dodané exporty.
+2. Doplnit Web3Forms access key do `.env` a otestovat odeslání formuláře.
+3. Rozšířit obsah o ceník a detailní podstránky služeb.
 
 ## Known Issues
 - Kontaktní formulář nemá vlastní backend, jen WP mail — musí se nahradit před vypnutím WP
@@ -39,6 +42,7 @@ main
 - Není ještě definovaná "content map" pro Telegram agenta (který text patří do kterého souboru)
 - Lokální `.env` obsahuje SFTP údaje a míří na testovací složku `/rakli.cz/www/_new`; soubor je ignorovaný Gitem.
 - `npm install` hlásí upozornění, že lokální npm je 9.2.0 a Astro 7 vyžaduje npm >= 9.6.5; build přesto prošel. Před delší prací je vhodné npm aktualizovat.
+- Opakované stahování `page_id` stránek z WordPressu aktuálně blokuje WAF; pro první verzi byl použit obsah dostupný z již stažené homepage a projektových poznámek.
 
 ## Important Decisions
 - Zvolen statický generátor (Astro) místo zůstání na WP — kolega nepotřebuje WP editor, jen diktuje změny do Telegramu, takže CMS vrstva je zbytečná
