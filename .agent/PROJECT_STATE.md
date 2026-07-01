@@ -32,11 +32,13 @@ main
 - Review přes `BEZI-ReviewerTest`: první review našel 2 deploy bezpečnostní nálezy; opraveno a finální re-review PROŠLO bez nálezů.
 - Reviewed build byl nasazen do `https://rakli.cz/_new/`; ověřeno HTTP 200 pro stránku i CSS asset.
 - Produkční WordPress na `https://www.rakli.cz/` po deployi stále běží; ověřený meta generator `WordPress 6.9.4`.
+- Grafika náhledu byla upravena podle referenční stránky `https://www.rakli.cz/?page_id=948#ordinacni-hodiny`: tmavý one-page styl, CTA `Objednat`, karty služeb, FAQ plus/minus a výrazné zaoblené bloky.
+- Review přes `BEZI-ReviewerTest` pro grafickou úpravu: PROŠLO bez nálezů.
 
 ## Next Steps
 1. Doplnit přesnější obsah z dalších podstránek WordPressu, až nebude blokovat WAF nebo budou dodané exporty.
 2. Doplnit Web3Forms access key do `.env` a otestovat odeslání formuláře.
-3. Rozšířit obsah o ceník a detailní podstránky služeb.
+3. Doladit grafiku podle ručního testu uživatele na `https://rakli.cz/_new/`.
 
 ## Known Issues
 - Kontaktní formulář nemá vlastní backend, jen WP mail — musí se nahradit před vypnutím WP

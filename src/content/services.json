@@ -1,17 +1,21 @@
 [
   {
+    "icon": "+",
     "title": "Praktická péče",
     "description": "Běžná péče praktického lékaře pro dospělé, prevence, konzultace zdravotního stavu a návazná doporučení."
   },
   {
+    "icon": "Rx",
     "title": "Recepty a medikace",
     "description": "Žádosti o recepty je možné řešit přes kontaktní e-mail ordinace nebo telefonicky podle aktuální situace."
   },
   {
+    "icon": "!",
     "title": "Akutní obtíže",
     "description": "Při akutních obtížích kontaktujte ordinaci předem, aby bylo možné domluvit vhodný postup a čas návštěvy."
   },
   {
+    "icon": "V",
     "title": "Očkování",
     "description": "Informace k očkování a dostupným termínům budou průběžně doplněny do samostatné obsahové sekce."
   }

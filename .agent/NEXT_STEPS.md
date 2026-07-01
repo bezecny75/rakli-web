@@ -24,6 +24,9 @@
 - [x] Provést review kódu přes `BEZI-ReviewerTest`
 - [x] Nasadit aktuální reviewed build do `/_new/`
 - [x] Ověřit HTTP 200 pro `https://rakli.cz/_new/` a CSS asset
+- [x] Upravit grafiku podle referenční stránky `?page_id=948#ordinacni-hodiny`
+- [x] Provést review grafické úpravy přes `BEZI-ReviewerTest`
+- [ ] Nasadit graficky upravený build do `/_new/`
 - [ ] Doplnit přesnější obsah z dalších WordPress podstránek nebo exportu
 - [ ] Zazálohovat WP DB + soubory před ostrým přepnutím
 - [ ] Ostrý deploy na produkci
