@@ -19,7 +19,7 @@ main
 - Testovací náhled běží na `https://rakli.cz/_new/`.
 - Lokálně připraven redesign 2025 podle `DESIGNE_PROMT.md`: světlý healthcare vizuál, top bar, sticky header, hero s foto placeholderem, trust bar, workflow sekce, přepracované karty/služby/hodiny/ceník/FAQ/kontakt/footer, bez JS knihoven.
 - Přidané content soubory `src/content/status.json` a `src/content/alert.json`; `.agent/CONTENT_MAP.md` rozšířený o jejich mapování.
-- Redesign zatím není nasazený; kvůli strukturální změně čeká na review / schválení náhledu.
+- Redesign 2025 je nasazený na staging `https://rakli.cz/_new/`; produkční WordPress na rootu zůstává nedotčený.
 
 ## Last Completed Work
 - 2026-06-30
@@ -55,10 +55,12 @@ main
 - Přidány `src/content/status.json` a `src/content/alert.json` z dodaných podkladů a mapování do `.agent/CONTENT_MAP.md`.
 - Ověřeno: `npm run build` prošel, lokální preview `/_new/` a `/_new/dekujeme/` vrací HTTP 200, dist obsahuje nové design komponenty a neobsahuje původní iconify JS.
 - Nezávislý review redesignu prošel buildem; původní nálezy byly zapracované: hero už nemá interní foto placeholder text a trust bar nepoužívá neověřený claim `E-recepty do 24h`.
-- Redesign není nasazený, protože jde o strukturální/grafickou změnu čekající na schválení.
+- Redesign 2025 byl nasazený na staging `https://rakli.cz/_new/`.
+- Ověřeno po deployi: `https://rakli.cz/_new/` HTTP 200, `https://rakli.cz/_new/dekujeme/` HTTP 200, CSS asset HTTP 200, stránka obsahuje nové design komponenty (`top-bar`, status badge, workflow), nemá interní foto placeholder a Web3Forms redirect míří na `https://rakli.cz/_new/dekujeme/`.
+- Produkční WordPress na `https://www.rakli.cz/` zůstal nedotčený; ověřený meta generator `WordPress 6.9.4`.
 
 ## Next Steps
-1. Zkontrolovat a schválit lokální redesign 2025; po schválení nasadit na staging `https://rakli.cz/_new/`.
+1. Ručně zkontrolovat nasazený redesign 2025 na `https://rakli.cz/_new/` na mobilu i desktopu.
 2. Zkontrolovat ručně namapovaný obsah na `https://rakli.cz/_new/`.
 3. Otestovat reálné doručení formuláře z prohlížeče na `https://rakli.cz/_new/` a ověřit cílový e-mail ve Web3Forms.
 4. Stáhnout a optimalizovat použitelné obrázky z `wp-content/uploads`, pokud je budeme chtít použít v nové grafice.

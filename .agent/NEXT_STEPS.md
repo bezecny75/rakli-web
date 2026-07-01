@@ -13,7 +13,8 @@
 - [x] Přidat content soubory `status.json` a `alert.json`
 - [x] Rozšířit `.agent/CONTENT_MAP.md` o status/alert
 - [x] Ověřit redesign přes `npm run build`
-- [ ] Schválit a nasadit redesign 2025 na staging `/_new/`
+- [x] Schválit a nasadit redesign 2025 na staging `/_new/`
+- [ ] Ručně zkontrolovat redesign 2025 na stagingu `https://rakli.cz/_new/`
 - [ ] Stáhnout a optimalizovat obrázky z wp-content/uploads
 - [x] Postavit první layout/sekce webu pro testovací náhled
 - [x] Připravit Web3Forms formulář v kódu včetně děkovací stránky
