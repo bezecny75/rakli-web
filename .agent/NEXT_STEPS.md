@@ -28,6 +28,8 @@
 - [x] Nasadit aktuální reviewed build do `/_new/`
 - [x] Ověřit HTTP 200 pro `https://rakli.cz/_new/` a CSS asset
 - [x] Upravit grafiku podle referenční stránky `?page_id=948#ordinacni-hodiny`
+- [x] Doplnit patičku podle referenční stránky `?page_id=948#ordinacni-hodiny`
+- [x] Provést review patičky přes `BEZI-ReviewerTest`
 - [x] Provést review grafické úpravy přes `BEZI-ReviewerTest`
 - [x] Nasadit graficky upravený build do `/_new/`
 - [x] Ověřit po deployi `https://rakli.cz/_new/`, CSS asset a hlavní WordPress
