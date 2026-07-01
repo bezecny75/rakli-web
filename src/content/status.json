@@ -1,0 +1,14 @@
+{
+  "state": "open",
+  "label": "Dnes otevřeno",
+  "note": "",
+  "updated": "2026-07-01",
+  "_states": {
+    "open": "zelená — ordinace je otevřena normálně",
+    "limited": "oranžová — omezený provoz (jen tel. konzultace, jen odběry apod.)",
+    "closed": "červená — dnes zavřeno (náhradní volno, nemoc lékaře)",
+    "vacation": "modrá — dovolená, délka v note (např. 'Dovolená 28.7.–8.8.2026')",
+    "deputy": "fialová — zastupující lékař, jméno v note"
+  },
+  "_note": "Aktualizuj state + label + note + updated. Label je text v badge na webu."
+}

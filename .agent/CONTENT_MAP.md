@@ -12,6 +12,8 @@ Tento soubor říká agentům, kde upravovat jednotlivé části webu.
 - O nás / tým ordinace: `src/content/about.json`
 - Objednávání: `src/content/ordering.json`
 - Očkování: `src/content/vaccination.json`
+- Stav ordinace / badge v hlavičce: `src/content/status.json`
+- Alert / upozornění v horní části webu: `src/content/alert.json`
 - Hlavní layout a vizuální struktura: `src/pages/index.astro`
 
 Zdroj posledního mapování obsahu:

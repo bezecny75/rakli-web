@@ -17,6 +17,9 @@ main
 - Kontaktní formulář je připravený přes Web3Forms; lokální `.env` obsahuje `PUBLIC_WEB3FORMS_ACCESS_KEY`, takže staging build renderuje aktivní formulář. Bez klíče se renderuje bezpečný fallback na e-mail.
 - Testovací deploy cíl v lokálním `.env`: `/rakli.cz/www/_new`; produkční WordPress zůstává v `/rakli.cz/www`.
 - Testovací náhled běží na `https://rakli.cz/_new/`.
+- Lokálně připraven redesign 2025 podle `DESIGNE_PROMT.md`: světlý healthcare vizuál, top bar, sticky header, hero s foto placeholderem, trust bar, workflow sekce, přepracované karty/služby/hodiny/ceník/FAQ/kontakt/footer, bez JS knihoven.
+- Přidané content soubory `src/content/status.json` a `src/content/alert.json`; `.agent/CONTENT_MAP.md` rozšířený o jejich mapování.
+- Redesign zatím není nasazený; kvůli strukturální změně čeká na review / schválení náhledu.
 
 ## Last Completed Work
 - 2026-06-30
@@ -47,11 +50,18 @@ main
 - Serverový test odeslání přes `curl` nelze použít: Web3Forms vrací 403 s informací, že metoda je povolená jen klientsky z prohlížeče. Reálný test doručení je potřeba provést ručně na staging stránce.
 - Opravená patička podle konkrétní stránky `https://www.rakli.cz/?page_id=948`: převzatá struktura `custom-footer` se sloupci brand, odkazy, kontakt, pojišťovny a spodním copyright řádkem.
 - Footer odkazy používají cíle z reference `#top`, `#services`, `#ordinacni-hodiny`, `https://www.rakli.cz/cenik`, `#contact`; v Astro stránce jsou doplněné alias kotvy pro interní odkazy.
+- 2026-07-01
+- Připraven lokální redesign podle dodaného `DESIGNE_PROMT.md`: nové CSS tokeny, Inter font, top bar, sticky header, mobile CSS hamburger, světlý hero s foto placeholderem, trust bar, workflow sekce, přepracované aktuality/služby/hodiny/ceník/FAQ/kontakt/footer.
+- Přidány `src/content/status.json` a `src/content/alert.json` z dodaných podkladů a mapování do `.agent/CONTENT_MAP.md`.
+- Ověřeno: `npm run build` prošel, lokální preview `/_new/` a `/_new/dekujeme/` vrací HTTP 200, dist obsahuje nové design komponenty a neobsahuje původní iconify JS.
+- Nezávislý review redesignu prošel buildem; původní nálezy byly zapracované: hero už nemá interní foto placeholder text a trust bar nepoužívá neověřený claim `E-recepty do 24h`.
+- Redesign není nasazený, protože jde o strukturální/grafickou změnu čekající na schválení.
 
 ## Next Steps
-1. Zkontrolovat ručně namapovaný obsah na `https://rakli.cz/_new/`.
-2. Otestovat reálné doručení formuláře z prohlížeče na `https://rakli.cz/_new/` a ověřit cílový e-mail ve Web3Forms.
-3. Stáhnout a optimalizovat použitelné obrázky z `wp-content/uploads`, pokud je budeme chtít použít v nové grafice.
+1. Zkontrolovat a schválit lokální redesign 2025; po schválení nasadit na staging `https://rakli.cz/_new/`.
+2. Zkontrolovat ručně namapovaný obsah na `https://rakli.cz/_new/`.
+3. Otestovat reálné doručení formuláře z prohlížeče na `https://rakli.cz/_new/` a ověřit cílový e-mail ve Web3Forms.
+4. Stáhnout a optimalizovat použitelné obrázky z `wp-content/uploads`, pokud je budeme chtít použít v nové grafice.
 
 ## Known Issues
 - Kontaktní formulář čeká na reálný test doručení a ověření cílového e-mailu ve Web3Forms; klíč není commitovaný do Gitu.

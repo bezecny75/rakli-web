@@ -9,6 +9,11 @@
 - [x] Přidat `.gitignore`, `.env.example`
 - [x] Vytvořit content soubory: hours, news, faq, pricing, services, contact
 - [x] Naplnit první content soubory daty z dostupného obsahu rakli.cz
+- [x] Připravit lokální redesign 2025 podle `DESIGNE_PROMT.md`
+- [x] Přidat content soubory `status.json` a `alert.json`
+- [x] Rozšířit `.agent/CONTENT_MAP.md` o status/alert
+- [x] Ověřit redesign přes `npm run build`
+- [ ] Schválit a nasadit redesign 2025 na staging `/_new/`
 - [ ] Stáhnout a optimalizovat obrázky z wp-content/uploads
 - [x] Postavit první layout/sekce webu pro testovací náhled
 - [x] Připravit Web3Forms formulář v kódu včetně děkovací stránky

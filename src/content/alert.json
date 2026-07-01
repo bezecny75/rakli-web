@@ -1,0 +1,12 @@
+{
+  "active": false,
+  "type": "info",
+  "message": "Ordinace bude uzavřena 28.–30. 7. 2026 (dovolená). Akutní případy: 155.",
+  "expires": "2026-07-30",
+  "_types": {
+    "info": "modrá — neutrální sdělení (změna hodin, nová sestra, organizační info)",
+    "warning": "oranžová — pozor (zkrácená provozní doba, výpadek telefonu)",
+    "urgent": "červená — akutní (uzavření ordinace, epidemie, náhradní péče)"
+  },
+  "_note": "Nastav active: true aby se bar zobrazil. expires: null = žádná expirace."
+}

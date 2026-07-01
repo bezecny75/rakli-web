@@ -9,6 +9,8 @@ import pricing from '../content/pricing.json';
 import about from '../content/about.json';
 import ordering from '../content/ordering.json';
 import vaccination from '../content/vaccination.json';
+import alert from '../content/alert.json';
+import status from '../content/status.json';
 
 const baseUrl = import.meta.env.BASE_URL;
 const web3FormsKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
@@ -16,6 +18,22 @@ const siteUrl = import.meta.env.PUBLIC_SITE_URL ?? 'https://rakli.cz';
 const formRedirectUrl = new URL(`${baseUrl}dekujeme/`, siteUrl).toString();
 const primaryPhone = contact.phones[0];
 const primaryEmail = contact.emails[0];
+const telHref = primaryPhone.replaceAll(' ', '');
+const today = new Date().toISOString().split('T')[0];
+const alertVisible = alert.active && (!alert.expires || alert.expires >= today);
+const insuranceBadges = ['111 VZP', '201 VoZP', '207 OZP', '211 ZPMV', '205 ČPZP'];
+const trustItems = [
+	'✓ Smluvní pojišťovny VZP, VoZP, OZP, ZPMV, ČPZP',
+	'✓ EKG & Holter v ordinaci',
+	'✓ E-recepty pro stabilní pacienty',
+	'✓ Závodní péče pro firmy',
+];
+const workflowSteps = [
+	'Zavolejte nám nebo napište přes formulář.',
+	'Přijďte v domluvené ordinační době.',
+	'Ošetříme vás a domluvíme další postup.',
+	'E-recept pošleme na mobil nebo e-mail.',
+];
 ---
 
 <html lang="cs">
@@ -30,18 +48,53 @@ const primaryEmail = contact.emails[0];
 			content={`${site.name} - ${site.tagline} v Českých Budějovicích.`}
 		/>
 		<title>{site.name} - {site.tagline}</title>
-		<script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
+		{alertVisible && (
+			<div class={`alert-bar alert-bar--${alert.type}`}>
+				<div class="alert-bar__inner">
+					<span class="alert-bar__icon" aria-hidden="true">
+						{alert.type === 'urgent' ? '🚨' : alert.type === 'warning' ? '⚠️' : 'ℹ️'}
+					</span>
+					<span class="alert-bar__message">{alert.message}</span>
+				</div>
+			</div>
+		)}
+
+		<div class="top-bar">
+			<div class="top-bar__inner">
+				<a href={`tel:${telHref}`}>{primaryPhone}</a>
+				<strong>{site.badge}</strong>
+				<div class="top-bar__badges" aria-label="Smluvní pojišťovny">
+					{insuranceBadges.map((badge) => <span>{badge}</span>)}
+				</div>
+			</div>
+		</div>
+
 		<header class="site-header">
 			<a class="brand" href="#top" aria-label="Úvod">
 				<span>{site.name}</span>
 				<small>{site.tagline}</small>
 			</a>
+
+			<input class="nav-toggle" id="nav-toggle" type="checkbox" aria-label="Otevřít menu" />
+			<label class="hamburger" for="nav-toggle" aria-hidden="true">
+				<span></span>
+				<span></span>
+				<span></span>
+			</label>
+
 			<nav aria-label="Hlavní navigace">
 				<a href="#sluzby">Služby</a>
 				<a href="#hodiny">Ordinační hodiny</a>
 				<a href="#cenik">Ceník</a>
+				<a href="#faq">FAQ</a>
 				<a href="#kontakt">Kontakt</a>
 				<a class="nav-cta" href="#formular">Objednat</a>
 			</nav>
@@ -49,101 +102,65 @@ const primaryEmail = contact.emails[0];
 
 		<main id="top">
 			<section class="hero">
-				<div class="hero-content">
-					<p class="eyebrow">{site.badge}</p>
-					<h1>{site.heroTitle}</h1>
-					<p class="lead">{site.tagline}</p>
-					<p>{site.intro}</p>
-					<div class="hero-actions">
-						<a class="button primary" href={site.buttonUrl}>
-							{site.buttonText}
-						</a>
-						<a class="button secondary" href={`mailto:${primaryEmail}`}>
-							Napsat e-mail
-						</a>
+				<div class="hero__inner">
+					<div class="hero-content">
+						<div class="hero-kicker">
+							<span class={`status-badge status-badge--${status.state}`}>
+								<span class="status-badge__dot"></span>
+								{status.label}
+								{status.note && <span class="status-badge__note"> — {status.note}</span>}
+							</span>
+							<span>{site.doctor}</span>
+						</div>
+						<div class="hero-alert">
+							<strong>Aktuální upozornění</strong>
+							<p>{site.notice}</p>
+						</div>
+						<h1>{site.heroTitle}</h1>
+						<p class="lead">{site.intro}</p>
+						<div class="hero-actions">
+							<a class="button primary" href={site.buttonUrl}>{site.buttonText}</a>
+							<a class="button secondary" href={`mailto:${primaryEmail}`}>Napsat e-mail</a>
+						</div>
+					</div>
+
+					<div class="hero-photo" aria-label="Ilustrační karta ordinace">
+						<span>🩺</span>
+						<p>Moderní ordinace praktického lékaře v Českých Budějovicích</p>
 					</div>
 				</div>
-
-				<aside class="notice" aria-label="Provozní upozornění">
-					<strong>Aktuální upozornění</strong>
-					<p>{site.notice}</p>
-					<p class="muted">
-						Stávající WordPress web zatím zůstává beze změny.
-					</p>
-				</aside>
 			</section>
 
-			<section id="sluzby" class="section">
-				<span id="services" class="anchor-alias"></span>
-				<div class="section-head">
-					<p class="eyebrow">Zdravotní péče</p>
-					<h2>Služby</h2>
+			<section class="trust-bar" aria-label="Rychlé výhody ordinace">
+				<div class="trust-bar__inner">
+					{trustItems.map((item) => <span>{item}</span>)}
 				</div>
+			</section>
 
-				<div class="service-grid">
-					{services.map((service) => (
-						<article class="card">
-							<span class="service-icon" aria-hidden="true">{service.icon}</span>
-							<h3>{service.title}</h3>
-							<p>{service.description}</p>
-						</article>
+			<section class="section workflow-section">
+				<div class="section-head centered">
+					<p class="section-label">Pro nové pacienty</p>
+					<h2>Jak to u nás funguje</h2>
+				</div>
+				<div class="workflow-grid">
+					{workflowSteps.map((step, index) => (
+						<div class="workflow-step">
+							<div class="step-number">{index + 1}</div>
+							<p>{step}</p>
+						</div>
 					))}
 				</div>
 			</section>
 
-			<section id="objednavani" class="section split">
-				<div class="section-head">
-					<p class="eyebrow">Objednání</p>
-					<h2>{ordering.title}</h2>
-					<p>{ordering.body}</p>
-				</div>
-
-				<div class="info-list">
-					{ordering.notes.map((note) => (
-						<div class="info-row">{note}</div>
-					))}
-				</div>
-			</section>
-
-			<section class="section split">
-				<div class="section-head">
-					<p class="eyebrow">Časté dotazy</p>
-					<h2>FAQ</h2>
-				</div>
-
-				<div class="faq-list">
-					{faq.map((item) => (
-						<details>
-							<summary>{item.question}</summary>
-							<p>{item.answer}</p>
-						</details>
-					))}
-				</div>
-			</section>
-
-			<section id="ockovani" class="section split">
-				<div class="section-head">
-					<p class="eyebrow">Prevence</p>
-					<h2>{vaccination.title}</h2>
-					<p>{vaccination.body}</p>
-				</div>
-
-				<div class="info-list">
-					{vaccination.items.map((item) => (
-						<div class="info-row">{item}</div>
-					))}
-				</div>
-			</section>
-
-			<section id="aktuality" class="section">
-				<div class="section-head">
-					<p class="eyebrow">Informace pro pacienty</p>
+			<section id="aktuality" class="section news-section">
+				<div class="section-head centered">
+					<p class="section-label">Informace pro pacienty</p>
 					<h2>Aktuality</h2>
 				</div>
 
 				<div class="news-list">
 					{news.map((item) => (
-						<article class="card">
+						<article class="news-card">
 							<time datetime={item.date}>{item.date}</time>
 							<h3>{item.title}</h3>
 							<p>{item.body}</p>
@@ -152,36 +169,61 @@ const primaryEmail = contact.emails[0];
 				</div>
 			</section>
 
-			<section id="hodiny" class="section split">
-				<span id="ordinacni-hodiny" class="anchor-alias"></span>
-				<div class="section-head">
-					<p class="eyebrow">Provoz ordinace</p>
-					<h2>Ordinační hodiny</h2>
-					<p>
-						Časy vycházejí z aktuálně dostupného webu. Před návštěvou ordinace
-						doporučujeme telefonické ověření.
-					</p>
+			<section id="sluzby" class="section services-section">
+				<span id="services" class="anchor-alias"></span>
+				<div class="section-head centered">
+					<p class="section-label">Zdravotní péče</p>
+					<h2>Služby ordinace</h2>
 				</div>
 
-				<div class="hours">
-					{hours.map((day) => (
-						<div class="hours-row">
-							<h3>{day.day}</h3>
-							<ul>
-								{day.items.map((item) => <li>{item}</li>)}
-							</ul>
-						</div>
+				<div class="service-grid">
+					{services.map((service) => (
+						<article class="service-card">
+							<span class="service-icon" aria-hidden="true">{service.icon}</span>
+							<h3>{service.title}</h3>
+							<p>{service.description}</p>
+						</article>
 					))}
 				</div>
 			</section>
 
-			<section id="cenik" class="section">
+			<section id="objednavani" class="section ordering-section split-section">
 				<div class="section-head">
-					<p class="eyebrow">Placené úkony</p>
+					<p class="section-label">Objednání</p>
+					<h2>{ordering.title}</h2>
+					<p>{ordering.body}</p>
+				</div>
+				<div class="info-list">
+					{ordering.notes.map((note) => <div class="info-row">{note}</div>)}
+				</div>
+			</section>
+
+			<section id="hodiny" class="section hours-section">
+				<span id="ordinacni-hodiny" class="anchor-alias"></span>
+				<div class="section-head centered">
+					<p class="section-label">Provoz ordinace</p>
+					<h2>Ordinační hodiny</h2>
+					<p>Před návštěvou ordinace doporučujeme telefonické ověření.</p>
+				</div>
+
+				<div class="hours-grid">
+					{hours.map((day) => (
+						<article class={`hours-card ${day.highlight ? 'is-highlighted' : ''}`}>
+							<h3>{day.day}</h3>
+							<div>
+								{day.items.map((item) => <p>{item}</p>)}
+							</div>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<section id="cenik" class="section pricing-section">
+				<div class="section-head centered">
+					<p class="section-label">Placené úkony</p>
 					<h2>Ceník</h2>
 					<p>Platnost od 1.1.2026. Jedná se o úkony nehrazené zdravotními pojišťovnami.</p>
 				</div>
-
 				<div class="price-list">
 					{pricing.map((item) => (
 						<div class="price-row">
@@ -195,10 +237,36 @@ const primaryEmail = contact.emails[0];
 				</div>
 			</section>
 
+			<section id="faq" class="section faq-section">
+				<div class="section-head centered">
+					<p class="section-label">Časté dotazy</p>
+					<h2>FAQ</h2>
+				</div>
+				<div class="faq-list">
+					{faq.map((item) => (
+						<details>
+							<summary>{item.question}</summary>
+							<div>{item.answer}</div>
+						</details>
+					))}
+				</div>
+			</section>
+
+			<section id="ockovani" class="section vaccination-section split-section">
+				<div class="section-head">
+					<p class="section-label">Prevence</p>
+					<h2>{vaccination.title}</h2>
+					<p>{vaccination.body}</p>
+				</div>
+				<div class="info-list">
+					{vaccination.items.map((item) => <div class="info-row">{item}</div>)}
+				</div>
+			</section>
+
 			<section id="kontakt" class="section contact-section">
 				<span id="contact" class="anchor-alias"></span>
-				<div class="section-head">
-					<p class="eyebrow">Kontakt</p>
+				<div class="section-head centered">
+					<p class="section-label">Kontakt</p>
 					<h2>Objednání a dotazy</h2>
 				</div>
 
@@ -226,9 +294,14 @@ const primaryEmail = contact.emails[0];
 								<li><a href={`mailto:${email}`}>{email}</a></li>
 							))}
 						</ul>
+						<iframe
+							title="Mapa ordinace Rakli s.r.o."
+							src="https://www.google.com/maps?q=K.%20%C5%A0af%C3%A1%C5%99e%20887%2F64%2C%20%C4%8Cesk%C3%A9%20Bud%C4%9Bjovice&output=embed"
+							loading="lazy"
+						></iframe>
 					</div>
 
-					<div id="formular" class="contact-card">
+					<div id="formular" class="contact-card form-card">
 						<h3>Kontaktní formulář</h3>
 						{web3FormsKey ? (
 							<form action="https://api.web3forms.com/submit" method="POST">
@@ -254,15 +327,13 @@ const primaryEmail = contact.emails[0];
 									<textarea name="message" rows="5" required></textarea>
 								</label>
 								<p class="form-note">
-									Do formuláře neposílejte akutní zdravotní potíže. V urgentních
-									případech volejte záchrannou službu nebo ordinaci telefonicky.
+									Do formuláře neposílejte akutní zdravotní potíže. V urgentních případech volejte záchrannou službu nebo ordinaci telefonicky.
 								</p>
 								<button class="button primary" type="submit">Odeslat</button>
 							</form>
 						) : (
 							<p>
-								Formulář bude aktivován po doplnění Web3Forms klíče. Do té doby
-								prosím použijte e-mail <a href={`mailto:${primaryEmail}`}>{primaryEmail}</a>.
+								Formulář bude aktivován po doplnění Web3Forms klíče. Do té doby prosím použijte e-mail <a href={`mailto:${primaryEmail}`}>{primaryEmail}</a>.
 							</p>
 						)}
 					</div>
@@ -274,62 +345,40 @@ const primaryEmail = contact.emails[0];
 			<div class="footer-container">
 				<div class="footer-grid">
 					<div class="footer-brand">
-						<a href="#top" class="footer-logo">
-							<div class="footer-logo-icon">
-								<iconify-icon icon="solar:health-linear" width="14"></iconify-icon>
-							</div>
-							<span>Rakli s.r.o.</span>
-						</a>
-						<p>
-							Poskytujeme kvalitní primární péči založenou na důvěře a odbornosti.
-							Smluvní partner všech zdravotních pojišťoven.
-						</p>
+						<a href="#top" class="footer-logo">{site.name}</a>
+						<p>Poskytujeme kvalitní primární péči založenou na důvěře a odbornosti.</p>
 					</div>
 
 					<div class="footer-links">
-						<h4>Odkazy</h4>
+						<h4>Rychlé odkazy</h4>
 						<a href="#top">Úvod</a>
 						<a href="#services">Služby</a>
 						<a href="#ordinacni-hodiny">Ordinační hodiny</a>
-						<a href="https://www.rakli.cz/cenik">Ceník placených úkonů</a>
+						<a href="#cenik">Ceník</a>
 						<a href="#contact">Kontakt</a>
 					</div>
 
 					<div class="footer-links">
 						<h4>Kontakt</h4>
-						<a href="tel:+420 123 456 789">+420 123 456 789</a>
-						<a href="mailto:info@rakli.cz">info@rakli.cz</a>
+						<a href={`tel:${telHref}`}>{primaryPhone}</a>
+						<a href={`mailto:${primaryEmail}`}>{primaryEmail}</a>
 						<div class="footer-address">
-							K. Šafáře 887/64<br />
-							České Budějovice
+							{contact.address.street}<br />
+							{contact.address.city}
 						</div>
 					</div>
 
 					<div class="footer-insurance">
 						<h4>Pojišťovny</h4>
 						<div class="insurance-grid">
-							<span>111 VZP</span>
-							<span>201 VoZP</span>
-							<span>207 OZP</span>
-							<span>211 ZPMV</span>
-							<span>205 ČPZP</span>
+							{insuranceBadges.map((badge) => <span>{badge}</span>)}
 						</div>
 					</div>
 				</div>
 
 				<div class="footer-bottom">
-					<div class="footer-copy">
-						© 2026 {site.name} Všechna práva vyhrazena.
-					</div>
-
-					<div class="footer-socials">
-						<a href="#">
-							<iconify-icon icon="solar:facebook-linear" width="18"></iconify-icon>
-						</a>
-						<a href="#">
-							<iconify-icon icon="solar:instagram-linear" width="18"></iconify-icon>
-						</a>
-					</div>
+					<div>© 2026 {site.name} Všechna práva vyhrazena.</div>
+					<div>Praktický lékař pro dospělé · České Budějovice</div>
 				</div>
 			</div>
 		</footer>
@@ -338,523 +387,202 @@ const primaryEmail = contact.emails[0];
 
 <style>
 	:root {
-		--ink: #ffffff;
-		--muted: #b7c2d7;
-		--line: rgba(255, 255, 255, 0.18);
-		--surface: rgba(255, 255, 255, 0.08);
-		--surface-strong: rgba(255, 255, 255, 0.13);
-		--soft: #10172a;
-		--brand: #38bdf8;
-		--brand-dark: #e0f2fe;
-		--accent: #f59e0b;
-		color: var(--ink);
-		font-family:
-			Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-			sans-serif;
-		background: var(--soft);
+		--color-primary: #0f4c75;
+		--color-primary-light: #e3eff7;
+		--color-primary-mid: #1b6ca8;
+		--color-accent: #27ae60;
+		--color-accent-dark: #1e8449;
+		--color-warm: #f0f4f8;
+		--color-text: #1a202c;
+		--color-text-muted: #718096;
+		--color-border: #e2e8f0;
+		--shadow-card: 0 2px 12px rgba(15, 76, 117, 0.10);
+		--shadow-hover: 0 8px 30px rgba(15, 76, 117, 0.18);
+		--radius-card: 12px;
+		--radius-pill: 50px;
+		--transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+		font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+		color: var(--color-text);
+		background: white;
 		scroll-behavior: smooth;
 	}
 
-	* {
-		box-sizing: border-box;
-	}
-
-	body {
-		margin: 0;
-		min-width: 320px;
-		background:
-			radial-gradient(circle at 15% 5%, rgba(56, 189, 248, 0.22), transparent 34rem),
-			linear-gradient(145deg, #10172a 0%, #111827 54%, #0b1020 100%);
-	}
-
-	a {
-		color: var(--brand-dark);
-	}
-
-	.site-header {
-		position: sticky;
-		top: 0;
-		z-index: 10;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 24px;
-		padding: 18px clamp(18px, 4vw, 56px);
-		background: rgba(16, 23, 42, 0.84);
-		border-bottom: 1px solid var(--line);
-		backdrop-filter: blur(16px);
-	}
-
-	.brand {
-		display: grid;
-		gap: 2px;
-		text-decoration: none;
-	}
-
-	.brand span {
-		color: #ffffff;
-		font-weight: 900;
-	}
-
-	.brand small,
-	.muted,
-	time {
-		color: var(--muted);
-	}
-
-	nav {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: flex-end;
-		gap: 14px;
-		font-size: 0.95rem;
-	}
-
-	nav a {
-		color: #ffffff;
-		text-decoration: none;
-		font-weight: 750;
-	}
-
-	.nav-cta {
-		padding: 8px 14px;
-		border: 1px solid rgba(255, 255, 255, 0.42);
-		border-radius: 999px;
-	}
-
-	main {
-		width: min(1180px, calc(100vw - 32px));
-		margin: 0 auto;
-	}
-
-	.hero {
-		display: grid;
-		grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.8fr);
-		gap: 28px;
-		align-items: stretch;
-		min-height: 72vh;
-		padding: 76px 0 48px;
-	}
-
-	.hero-content,
-	.notice,
-	.card,
-	.contact-card,
-	details {
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: 30px;
-		box-shadow: 0 30px 90px rgba(0, 0, 0, 0.24);
-		backdrop-filter: blur(18px);
-	}
-
-	.hero-content {
-		padding: clamp(28px, 5vw, 56px);
-	}
-
-	.notice {
-		align-self: stretch;
-		padding: 28px;
-		border-color: rgba(245, 158, 11, 0.45);
-		background: rgba(245, 158, 11, 0.12);
-	}
-
-	.eyebrow {
-		margin: 0 0 10px;
-		color: #7dd3fc;
-		font-size: 0.82rem;
-		font-weight: 850;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-	}
-
-	h1,
-	h2,
-	h3,
-	p {
-		margin-top: 0;
-	}
-
-	h1 {
-		margin-bottom: 10px;
-		font-size: clamp(2.5rem, 7vw, 5.4rem);
-		line-height: 0.96;
-	}
-
-	h2 {
-		font-size: clamp(1.9rem, 4vw, 3rem);
-		line-height: 1.08;
-	}
-
-	h3 {
-		margin-bottom: 10px;
-		font-size: 1.15rem;
-	}
-
-	p,
-	li,
-	label,
-	input,
-	textarea {
-		font-size: 1rem;
-		line-height: 1.65;
-	}
-
-	.lead {
-		color: var(--brand-dark);
-		font-size: clamp(1.2rem, 2.4vw, 1.55rem);
-		font-weight: 750;
-	}
-
-	.hero-actions {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 12px;
-		margin-top: 28px;
-	}
-
-	.button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 44px;
-		padding: 10px 18px;
-		border: 1px solid var(--brand);
-		border-radius: 999px;
-		font-weight: 800;
-		text-decoration: none;
-	}
-
-	.button.primary {
-		color: #ffffff;
-		background: linear-gradient(135deg, #0284c7, #0ea5e9);
-	}
-
-	.button.secondary {
-		color: #ffffff;
-		background: transparent;
-		border-color: rgba(255, 255, 255, 0.38);
-	}
-
-	.section {
-		position: relative;
-		padding: 42px 0;
-	}
-
-	.anchor-alias {
-		position: absolute;
-		top: -82px;
-	}
-
-	.section-head {
-		max-width: 720px;
-		margin-bottom: 24px;
-	}
-
-	.news-list,
-	.service-grid,
-	.contact-grid {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 18px;
-	}
-
-	.card,
-	.contact-card {
-		padding: 24px;
-	}
-
-	.service-icon {
-		display: inline-grid;
-		place-items: center;
-		width: 44px;
-		height: 44px;
-		margin-bottom: 18px;
-		color: #ffffff;
-		background: rgba(56, 189, 248, 0.22);
-		border: 1px solid rgba(125, 211, 252, 0.45);
-		border-radius: 999px;
-		font-weight: 900;
-	}
-
-	.split {
-		display: grid;
-		grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
-		gap: 28px;
-		align-items: start;
-	}
-
-	.hours {
-		display: grid;
-		gap: 10px;
-	}
-
-	.hours-row {
-		display: grid;
-		grid-template-columns: 150px minmax(0, 1fr);
-		gap: 16px;
-		padding: 16px 0;
-		border-bottom: 1px solid var(--line);
-	}
-
-	.hours-row h3,
-	.hours-row ul {
-		margin: 0;
-	}
-
-	.hours-row ul,
-	.contact-list,
-	.team-list {
-		padding-left: 18px;
-	}
-
-	.info-list,
-	.price-list {
-		display: grid;
-		gap: 12px;
-	}
-
-	.info-row,
-	.price-row {
-		padding: 18px 20px;
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: 22px;
-	}
-
-	.price-row {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto;
-		gap: 18px;
-		align-items: start;
-	}
-
-	.price-row p {
-		margin-bottom: 0;
-		color: var(--muted);
-	}
-
-	.price-row span {
-		color: #ffffff;
-		font-weight: 900;
-		white-space: nowrap;
-	}
-
-	details {
-		padding: 18px 20px;
-		margin-bottom: 12px;
-	}
-
-	summary {
-		cursor: pointer;
-		display: flex;
-		justify-content: space-between;
-		gap: 18px;
-		font-weight: 850;
-	}
-
-	summary::after {
-		content: "+";
-		color: var(--brand);
-		font-size: 1.35rem;
-		line-height: 1;
-	}
-
-	details[open] summary::after {
-		content: "-";
-	}
-
-	address {
-		font-style: normal;
-		line-height: 1.7;
-	}
-
-	form {
-		display: grid;
-		gap: 14px;
-	}
-
-	.form-note {
-		margin: 0;
-		color: var(--muted);
-		font-size: 0.92rem;
-		line-height: 1.55;
-	}
-
-	.sr-only {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		overflow: hidden;
-		clip: rect(0, 0, 0, 0);
-		white-space: nowrap;
-	}
-
-	label {
-		display: grid;
-		gap: 6px;
-		font-weight: 750;
-	}
-
-	input,
-	textarea {
-		width: 100%;
-		padding: 11px 12px;
-		border: 1px solid var(--line);
-		border-radius: 14px;
-		font: inherit;
-		color: #ffffff;
-		background: rgba(255, 255, 255, 0.08);
-	}
-
-	.custom-footer {
-		margin-top: 56px;
-		color: rgba(255, 255, 255, 0.78);
-		background: #0b1020;
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
-	}
-
-	.footer-container {
-		width: min(1180px, calc(100vw - 32px));
-		margin: 0 auto;
-		padding: 54px 0 28px;
-	}
-
-	.footer-grid {
-		display: grid;
-		grid-template-columns: 1.35fr 0.8fr 0.95fr 0.9fr;
-		gap: 34px;
-	}
-
-	.footer-brand p {
-		max-width: 360px;
-		margin: 16px 0 0;
-		color: rgba(255, 255, 255, 0.68);
-	}
-
-	.footer-logo {
-		display: inline-flex;
-		align-items: center;
-		gap: 10px;
-		color: #ffffff;
-		font-weight: 850;
-		text-decoration: none;
-	}
-
-	.footer-logo-icon {
-		display: grid;
-		place-items: center;
-		width: 32px;
-		height: 32px;
-		color: #ffffff;
-		background: #0ea5e9;
-		border-radius: 10px;
-	}
-
-	.footer-links,
-	.footer-insurance {
-		display: grid;
-		align-content: start;
-		gap: 10px;
-	}
-
-	.footer-links h4,
-	.footer-insurance h4 {
-		margin: 0 0 8px;
-		color: #ffffff;
-		font-size: 1rem;
-	}
-
-	.footer-links a,
-	.footer-address {
-		color: rgba(255, 255, 255, 0.72);
-		text-decoration: none;
-	}
-
-	.insurance-grid {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 8px;
-	}
-
-	.insurance-grid span {
-		padding: 8px 10px;
-		color: #ffffff;
-		background: rgba(255, 255, 255, 0.08);
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 12px;
-		font-size: 0.86rem;
-		font-weight: 750;
-	}
-
-	.footer-bottom {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 20px;
-		margin-top: 38px;
-		padding-top: 22px;
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
-	}
-
-	.footer-copy {
-		color: rgba(255, 255, 255, 0.62);
-		font-size: 0.92rem;
-	}
-
-	.footer-socials {
-		display: flex;
-		gap: 10px;
-	}
-
-	.footer-socials a {
-		display: grid;
-		place-items: center;
-		width: 36px;
-		height: 36px;
-		color: #ffffff;
-		background: rgba(255, 255, 255, 0.08);
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 999px;
-	}
-
-	@media (max-width: 820px) {
-		.site-header,
-		.hero,
-		.split,
-		.news-list,
-		.service-grid,
-		.contact-grid,
-		.hours-row,
-		.price-row {
-			grid-template-columns: 1fr;
-		}
-
-		.site-header {
-			position: static;
-			align-items: flex-start;
-		}
-
-		nav {
-			justify-content: flex-start;
-		}
-
-		.hero {
-			padding-top: 32px;
-		}
-
-		.footer-grid,
-		.footer-bottom {
-			grid-template-columns: 1fr;
-		}
-
-		.footer-grid {
-			gap: 26px;
-		}
-
-		.footer-bottom {
-			display: grid;
-			justify-items: start;
-		}
+	* { box-sizing: border-box; }
+	body { margin: 0; min-width: 320px; background: white; color: var(--color-text); }
+	a { color: inherit; text-decoration: none; }
+	p { line-height: 1.7; }
+
+	.alert-bar { width: 100%; padding: 0.65rem 1.5rem; font-size: 0.9rem; font-weight: 500; text-align: center; }
+	.alert-bar__inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+	.alert-bar--info { background: #dbeafe; color: #1e40af; }
+	.alert-bar--warning { background: #fef3c7; color: #92400e; }
+	.alert-bar--urgent { background: #fee2e2; color: #991b1b; }
+
+	.top-bar { position: sticky; top: 0; z-index: 40; height: 40px; background: var(--color-primary); color: white; font-size: 0.85rem; }
+	.top-bar__inner { max-width: 1100px; height: 100%; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+	.top-bar strong { color: #fecaca; font-weight: 800; letter-spacing: 0.02em; }
+	.top-bar__badges { display: flex; gap: 0.35rem; flex-wrap: wrap; justify-content: flex-end; }
+	.top-bar__badges span { border: 1px solid rgba(255, 255, 255, 0.28); border-radius: 999px; padding: 0.12rem 0.45rem; font-size: 0.75rem; }
+
+	.site-header { position: sticky; top: 40px; z-index: 35; height: 68px; background: white; box-shadow: 0 1px 0 var(--color-border), var(--shadow-card); display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; }
+	.site-header .brand { display: grid; gap: 0.1rem; color: var(--color-primary); }
+	.brand span { font-size: 1.28rem; font-weight: 800; letter-spacing: -0.03em; }
+	.brand small { color: var(--color-text-muted); font-size: 0.76rem; font-weight: 500; }
+	nav { display: flex; align-items: center; gap: 1.35rem; }
+	nav a { position: relative; color: var(--color-text); font-size: 0.94rem; font-weight: 500; letter-spacing: 0.01em; transition: var(--transition); }
+	nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -0.35rem; height: 2px; background: var(--color-primary-mid); transform: scaleX(0); transform-origin: center; transition: transform 0.2s ease; }
+	nav a:hover { color: var(--color-primary-mid); }
+	nav a:hover::after { transform: scaleX(1); }
+	.nav-cta { background: var(--color-accent); color: white !important; border-radius: var(--radius-pill); padding: 0.5rem 1.3rem; font-weight: 600; box-shadow: 0 8px 20px rgba(39, 174, 96, 0.22); }
+	.nav-cta::after { display: none; }
+	.nav-cta:hover { background: var(--color-accent-dark); transform: translateY(-1px); }
+	.nav-toggle { display: none; }
+	.hamburger { display: none; }
+
+	.hero { background: linear-gradient(135deg, #e8f4fd 0%, #f0f8f0 50%, #ffffff 100%); padding: 5rem 1.5rem 4rem; }
+	.hero__inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 55% 45%; align-items: center; gap: 3rem; }
+	.hero-content h1 { max-width: 560px; margin: 0 0 1.2rem; color: var(--color-text); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.045em; }
+	.hero-kicker { display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; color: var(--color-primary); font-weight: 700; }
+	.hero-alert { margin-bottom: 1.5rem; max-width: 620px; border-left: 4px solid var(--color-primary-mid); background: var(--color-primary-light); border-radius: 0 8px 8px 0; padding: 0.8rem 1.2rem; font-size: 0.95rem; }
+	.hero-alert p { margin: 0.25rem 0 0; color: var(--color-text-muted); }
+	.lead { max-width: 620px; color: var(--color-text-muted); font-size: 1.12rem; margin-bottom: 1.7rem; }
+	.hero-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+	.button { display: inline-flex; align-items: center; justify-content: center; border-radius: var(--radius-pill); font-weight: 700; transition: var(--transition); }
+	.button.primary { background: var(--color-accent); color: white; padding: 0.85rem 2rem; font-size: 1.05rem; border: 2px solid var(--color-accent); }
+	.button.primary:hover { background: var(--color-accent-dark); border-color: var(--color-accent-dark); transform: translateY(-2px); }
+	.button.secondary { border: 2px solid var(--color-primary); color: var(--color-primary); background: transparent; padding: 0.8rem 1.8rem; }
+	.button.secondary:hover { background: white; transform: translateY(-2px); box-shadow: var(--shadow-card); }
+	.hero-photo { min-height: 320px; border-radius: 16px; background: var(--color-primary-light); border: 2px dashed var(--color-primary-mid); display: grid; place-items: center; text-align: center; padding: 2rem; color: var(--color-primary); box-shadow: var(--shadow-card); }
+	.hero-photo span { font-size: 3rem; }
+	.hero-photo p { max-width: 280px; margin: 0.5rem auto 0; font-weight: 700; }
+
+	.status-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 50px; white-space: nowrap; }
+	.status-badge__dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+	.status-badge--open { background: #dcfce7; color: #166534; }
+	.status-badge--open .status-badge__dot { background: #16a34a; animation: pulse 2s infinite; }
+	.status-badge--limited { background: #fef3c7; color: #92400e; }
+	.status-badge--limited .status-badge__dot { background: #d97706; }
+	.status-badge--closed { background: #fee2e2; color: #991b1b; }
+	.status-badge--closed .status-badge__dot { background: #dc2626; }
+	.status-badge--vacation { background: #dbeafe; color: #1e40af; }
+	.status-badge--vacation .status-badge__dot { background: #2563eb; }
+	.status-badge--deputy { background: #ede9fe; color: #5b21b6; }
+	.status-badge--deputy .status-badge__dot { background: #7c3aed; }
+	.status-badge__note { font-weight: 400; opacity: 0.85; }
+	@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+	.trust-bar { background: white; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); padding: 1.2rem 1.5rem; }
+	.trust-bar__inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; color: var(--color-primary-mid); font-size: 0.9rem; font-weight: 700; }
+
+	.section { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem; }
+	.workflow-section, .services-section, .contact-section, .pricing-section, .vaccination-section { max-width: none; background: var(--color-warm); }
+	.workflow-section > *, .services-section > *, .contact-section > *, .pricing-section > *, .vaccination-section > * { max-width: 1100px; margin-left: auto; margin-right: auto; }
+	.section-head { margin-bottom: 2rem; }
+	.section-head.centered { text-align: center; }
+	.section-label { margin: 0 0 0.4rem; color: var(--color-primary-mid); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+	h2 { margin: 0; color: var(--color-text); font-size: clamp(1.8rem, 3vw, 2.45rem); line-height: 1.12; letter-spacing: -0.035em; }
+	.section-head p:not(.section-label) { max-width: 720px; color: var(--color-text-muted); }
+	.centered p:not(.section-label) { margin-left: auto; margin-right: auto; }
+	.anchor-alias { position: relative; top: -120px; }
+
+	.workflow-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; position: relative; }
+	.workflow-step { position: relative; background: white; border-radius: var(--radius-card); padding: 1.4rem; box-shadow: var(--shadow-card); }
+	.workflow-step:not(:last-child)::after { content: "→"; position: absolute; top: 2rem; right: -0.9rem; color: var(--color-primary-mid); font-size: 1.4rem; font-weight: 800; z-index: 2; }
+	.step-number { width: 40px; height: 40px; border-radius: 50%; background: var(--color-primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; margin-bottom: 1rem; }
+	.workflow-step p { margin: 0; color: var(--color-text-muted); font-weight: 600; }
+
+	.news-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+	.news-card { border-left: 4px solid var(--color-primary); border-radius: 0 var(--radius-card) var(--radius-card) 0; background: white; box-shadow: var(--shadow-card); padding: 1.5rem; transition: var(--transition); }
+	.news-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+	.news-card time { display: block; margin-bottom: 0.5rem; color: var(--color-primary-mid); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+	.news-card h3, .service-card h3, .contact-card h3 { margin: 0 0 0.5rem; font-size: 1rem; font-weight: 800; }
+	.news-card p, .service-card p, .contact-card p { margin: 0; color: var(--color-text-muted); }
+
+	.service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+	.service-card { background: white; border-radius: var(--radius-card); box-shadow: var(--shadow-card); border-top: 3px solid var(--color-primary); padding: 1.5rem; transition: var(--transition); }
+	.service-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+	.service-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--color-primary-light); color: var(--color-primary); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 0.82rem; font-weight: 800; }
+
+	.split-section { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2rem; align-items: start; }
+	.info-list { display: grid; gap: 0.75rem; }
+	.info-row { background: white; border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: 1rem 1.2rem; box-shadow: var(--shadow-card); color: var(--color-text-muted); font-weight: 600; }
+
+	.hours-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+	.hours-card { overflow: hidden; border-radius: var(--radius-card); box-shadow: var(--shadow-card); background: white; }
+	.hours-card h3 { margin: 0; background: var(--color-primary); color: white; padding: 0.8rem 1rem; text-align: center; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; }
+	.hours-card.is-highlighted h3 { background: var(--color-primary-mid); }
+	.hours-card div { padding: 1rem; }
+	.hours-card p { margin: 0 0 0.55rem; color: var(--color-text); font-size: 0.9rem; font-weight: 700; }
+	.hours-card p:last-child { margin-bottom: 0; color: var(--color-text-muted); font-size: 0.8rem; font-style: italic; font-weight: 500; }
+
+	.price-list { max-width: 900px; margin: 0 auto; border: 1px solid var(--color-border); border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-card); }
+	.price-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.75rem 1rem; border-bottom: 1px solid var(--color-border); }
+	.price-row:nth-child(odd) { background: white; }
+	.price-row:nth-child(even) { background: var(--color-warm); }
+	.price-row:last-child { border-bottom: none; }
+	.price-row strong { font-weight: 600; }
+	.price-row p { margin: 0.2rem 0 0; color: var(--color-text-muted); font-size: 0.86rem; }
+	.price-row span { color: var(--color-primary-mid); font-weight: 800; white-space: nowrap; }
+
+	.faq-list { max-width: 820px; margin: 0 auto; }
+	details { border: 1px solid var(--color-border); border-radius: var(--radius-card); margin-bottom: 0.5rem; overflow: hidden; background: white; }
+	summary { padding: 1rem 1.2rem; font-weight: 700; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+	summary::-webkit-details-marker { display: none; }
+	summary::after { content: "▼"; font-size: 0.7rem; color: var(--color-text-muted); transition: transform 0.2s; }
+	details[open] summary { color: var(--color-primary); background: var(--color-primary-light); }
+	details[open] summary::after { transform: rotate(180deg); }
+	details > div { padding: 1rem 1.2rem; border-top: 1px solid var(--color-border); color: var(--color-text-muted); line-height: 1.7; }
+
+	.contact-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+	.contact-card { background: white; border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: 1.5rem; }
+	.team-list, .contact-list { list-style: none; padding: 0; margin: 1rem 0 0; display: grid; gap: 0.55rem; color: var(--color-text-muted); }
+	.contact-list a { color: var(--color-primary-mid); font-weight: 700; }
+	address { margin: 1rem 0; color: var(--color-text-muted); font-style: normal; line-height: 1.65; }
+	iframe { width: 100%; min-height: 220px; margin-top: 1rem; border: 0; border-radius: var(--radius-card); overflow: hidden; }
+	form { display: grid; gap: 0.9rem; }
+	label { display: grid; gap: 0.35rem; color: var(--color-text); font-weight: 700; }
+	input, textarea { width: 100%; border: 1.5px solid var(--color-border); border-radius: 8px; padding: 0.75rem 1rem; font: inherit; background: white; color: var(--color-text); }
+	input:focus, textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(15, 76, 117, 0.12); outline: none; }
+	.form-note { color: var(--color-text-muted); font-size: 0.87rem; }
+	.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+
+	.custom-footer { background: #1a202c; color: #e2e8f0; }
+	.footer-container { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem 1.5rem; }
+	.footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 0.9fr 0.9fr; gap: 2rem; }
+	.footer-logo { color: white; font-size: 1.2rem; font-weight: 800; }
+	.footer-brand p, .footer-address { color: #a0aec0; }
+	.footer-links { display: grid; align-content: start; gap: 0.55rem; }
+	.footer-links h4, .footer-insurance h4 { margin: 0 0 0.6rem; color: white; }
+	.footer-links a { color: #a0aec0; transition: var(--transition); }
+	.footer-links a:hover { color: white; }
+	.insurance-grid { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+	.insurance-grid span { border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.75rem; color: #e2e8f0; }
+	.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 2rem; padding-top: 1.5rem; display: flex; justify-content: space-between; gap: 1rem; color: #718096; font-size: 0.8rem; }
+
+	@media (max-width: 920px) {
+		.site-header { top: 40px; }
+		nav { position: absolute; left: 0; right: 0; top: 68px; display: none; flex-direction: column; align-items: stretch; gap: 0; padding: 0.8rem 1.5rem 1.2rem; background: white; border-top: 1px solid var(--color-border); box-shadow: var(--shadow-card); }
+		nav a { padding: 0.85rem 0; }
+		.nav-cta { text-align: center; margin-top: 0.4rem; }
+		.hamburger { display: grid; gap: 5px; cursor: pointer; }
+		.hamburger span { width: 26px; height: 2px; background: var(--color-primary); display: block; }
+		.nav-toggle:checked ~ nav { display: flex; }
+		.hero__inner, .split-section, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
+		.hero-photo { display: none; }
+		.news-list { grid-template-columns: 1fr; }
+		.workflow-grid { grid-template-columns: repeat(2, 1fr); }
+		.workflow-step::after { display: none; }
+		.hours-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+
+	@media (max-width: 560px) {
+		.top-bar__badges { display: none; }
+		.top-bar strong { font-size: 0.78rem; }
+		.site-header { padding: 0 1rem; }
+		.hero, .section { padding-left: 1rem; padding-right: 1rem; }
+		.hero-actions { display: grid; }
+		.workflow-grid, .hours-grid { grid-template-columns: 1fr; }
+		.price-row { align-items: flex-start; flex-direction: column; gap: 0.35rem; }
+		.footer-bottom { flex-direction: column; }
 	}
 </style>
