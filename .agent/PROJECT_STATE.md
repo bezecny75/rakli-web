@@ -45,8 +45,8 @@ main
 - Review přes `BEZI-ReviewerTest` pro kontaktní formulář: PROŠLO bez nálezů.
 - Formulářový build byl nasazen do `https://rakli.cz/_new/`; živý staging obsahuje aktivní formulář a `https://rakli.cz/_new/dekujeme/` vrací HTTP 200.
 - Serverový test odeslání přes `curl` nelze použít: Web3Forms vrací 403 s informací, že metoda je povolená jen klientsky z prohlížeče. Reálný test doručení je potřeba provést ručně na staging stránce.
-- Doplněná patička podle referenční stránky `https://www.rakli.cz/?page_id=948#ordinacni-hodiny`: seznam odkazů ve stejném pořadí jako WordPress footer a copyright/kredity.
-- Review přes `BEZI-ReviewerTest` pro patičku: PROŠLO bez nálezů; duplicitní odkazy jsou záměrné kvůli 1:1 převzetí footer seznamu.
+- Opravená patička podle konkrétní stránky `https://www.rakli.cz/?page_id=948`: převzatá struktura `custom-footer` se sloupci brand, odkazy, kontakt, pojišťovny a spodním copyright řádkem.
+- Footer odkazy používají cíle z reference `#top`, `#services`, `#ordinacni-hodiny`, `https://www.rakli.cz/cenik`, `#contact`; v Astro stránce jsou doplněné alias kotvy pro interní odkazy.
 
 ## Next Steps
 1. Zkontrolovat ručně namapovaný obsah na `https://rakli.cz/_new/`.

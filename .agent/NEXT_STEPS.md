@@ -28,7 +28,7 @@
 - [x] Nasadit aktuální reviewed build do `/_new/`
 - [x] Ověřit HTTP 200 pro `https://rakli.cz/_new/` a CSS asset
 - [x] Upravit grafiku podle referenční stránky `?page_id=948#ordinacni-hodiny`
-- [x] Doplnit patičku podle referenční stránky `?page_id=948#ordinacni-hodiny`
+- [x] Doplnit patičku `custom-footer` podle konkrétní stránky `?page_id=948`
 - [x] Provést review patičky přes `BEZI-ReviewerTest`
 - [x] Provést review grafické úpravy přes `BEZI-ReviewerTest`
 - [x] Nasadit graficky upravený build do `/_new/`
