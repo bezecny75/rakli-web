@@ -11,6 +11,8 @@
 - [x] Naplnit první content soubory daty z dostupného obsahu rakli.cz
 - [ ] Stáhnout a optimalizovat obrázky z wp-content/uploads
 - [x] Postavit první layout/sekce webu pro testovací náhled
+- [x] Připravit Web3Forms formulář v kódu včetně děkovací stránky
+- [x] Provést review kontaktního formuláře přes `BEZI-ReviewerTest`
 - [ ] Založit účet Web3Forms a doplnit access key do `.env`
 - [ ] Otestovat doručení mailu z formuláře
 - [x] Doplnit skutečné SFTP přístupy do necommitovaného `.env`

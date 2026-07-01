@@ -23,6 +23,8 @@ FTP_USER=
 FTP_PASS=
 FTP_REMOTE_DIR=
 FTP_PROTOCOL=sftp
+PUBLIC_SITE_URL=https://rakli.cz
+PUBLIC_WEB3FORMS_ACCESS_KEY=
 ```
 
 Lokální konfigurace:
@@ -33,6 +35,10 @@ chmod 600 .env
 ```
 
 Do `.env` doplň SFTP uživatele, heslo a cílovou cestu na hostingu. Soubor `.env` je ignorovaný Gitem.
+
+Pro aktivaci kontaktního formuláře doplň také `PUBLIC_WEB3FORMS_ACCESS_KEY`.
+Je to build-time hodnota: po změně klíče je nutné znovu spustit `npm run build` a deploy.
+Bez klíče se na webu zobrazí bezpečný fallback na e-mail ordinace.
 
 Aktuální bezpečný testovací cíl:
 

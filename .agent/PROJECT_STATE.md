@@ -14,7 +14,7 @@ main
 - Astro projekt je inicializovaný minimální šablonou.
 - `astro.config.mjs` má dočasně nastavené `base: '/_new/'`, aby náhled fungoval v testovací podsložce.
 - `scripts/deploy.sh` je otestovaný pro deploy z `dist/` přes SFTP na `rakli.cz` do `/rakli.cz/www/_new`.
-- Kontaktní formulář aktuálně bez backendu (posílá na mail přes WP) — nutno nahradit
+- Kontaktní formulář je připravený přes Web3Forms; bez `PUBLIC_WEB3FORMS_ACCESS_KEY` se renderuje bezpečný fallback na e-mail.
 - Testovací deploy cíl v lokálním `.env`: `/rakli.cz/www/_new`; produkční WordPress zůstává v `/rakli.cz/www`.
 - Testovací náhled běží na `https://rakli.cz/_new/`.
 
@@ -40,14 +40,17 @@ main
 - Review přes `BEZI-ReviewerTest` pro mapování WP exportu: PROŠLO bez nálezů.
 - Obsahově doplněný build byl nasazen do `https://rakli.cz/_new/`.
 - Ověřeno po deployi: `https://rakli.cz/_new/` vrací HTTP 200, CSS asset vrací HTTP 200, kořen `https://rakli.cz/` po redirectu stále běží na WordPressu (`WordPress 6.9.4`).
+- Připravený kontaktní formulář přes Web3Forms: jméno, e-mail, telefon, zpráva, honeypot `botcheck`, subject/from metadata a redirect na `/dekujeme/`.
+- Přidaná děkovací stránka `src/pages/dekujeme.astro`; kontrolní build s dočasným klíčem ověřil aktivní formulář a redirect na `https://rakli.cz/_new/dekujeme/`.
+- Review přes `BEZI-ReviewerTest` pro kontaktní formulář: PROŠLO bez nálezů.
 
 ## Next Steps
 1. Zkontrolovat ručně namapovaný obsah na `https://rakli.cz/_new/`.
-2. Doplnit Web3Forms access key do `.env` a otestovat odeslání formuláře.
+2. Doplnit Web3Forms access key do `.env`, znovu buildnout/deploynout a otestovat reálné doručení formuláře.
 3. Stáhnout a optimalizovat použitelné obrázky z `wp-content/uploads`, pokud je budeme chtít použít v nové grafice.
 
 ## Known Issues
-- Kontaktní formulář nemá vlastní backend, jen WP mail — musí se nahradit před vypnutím WP
+- Kontaktní formulář čeká na reálný Web3Forms access key a test doručení; bez klíče se zobrazuje fallback na e-mail.
 - Hosting nemá SSH, deploy musí jít přes FTP/SFTP, ne git pull na serveru
 - Není ještě definovaná "content map" pro Telegram agenta (který text patří do kterého souboru)
 - Lokální `.env` obsahuje SFTP údaje a míří na testovací složku `/rakli.cz/www/_new`; soubor je ignorovaný Gitem.
