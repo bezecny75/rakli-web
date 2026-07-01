@@ -13,7 +13,8 @@
 - [x] Postavit první layout/sekce webu pro testovací náhled
 - [x] Připravit Web3Forms formulář v kódu včetně děkovací stránky
 - [x] Provést review kontaktního formuláře přes `BEZI-ReviewerTest`
-- [ ] Založit účet Web3Forms a doplnit access key do `.env`
+- [x] Doplnit Web3Forms access key do lokálního `.env`
+- [x] Nasadit aktivní formulář na staging `/_new/`
 - [ ] Otestovat doručení mailu z formuláře
 - [x] Doplnit skutečné SFTP přístupy do necommitovaného `.env`
 - [x] Nastavit testovací deploy cíl na `/rakli.cz/www/_new`

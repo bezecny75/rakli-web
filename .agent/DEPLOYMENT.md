@@ -39,6 +39,7 @@ Do `.env` doplň SFTP uživatele, heslo a cílovou cestu na hostingu. Soubor `.e
 Pro aktivaci kontaktního formuláře doplň také `PUBLIC_WEB3FORMS_ACCESS_KEY`.
 Je to build-time hodnota: po změně klíče je nutné znovu spustit `npm run build` a deploy.
 Bez klíče se na webu zobrazí bezpečný fallback na e-mail ordinace.
+Aktuální lokální `.env` už Web3Forms klíč obsahuje; klíč se necommituje, ale u Web3Forms je součástí vybuildovaného klientského formuláře.
 
 Aktuální bezpečný testovací cíl:
 
