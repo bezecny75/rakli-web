@@ -51,6 +51,6 @@
 - [ ] Zazálohovat WP DB + soubory před ostrým přepnutím
 - [ ] Ostrý deploy na produkci
 - [ ] Napojit repo do agent2telegram bridge
-- [ ] Definovat content map (text → soubor) pro agenta
+- [x] Definovat content map (text → soubor) pro agenta
 - [ ] Otestovat 3 reálné scénáře úprav přes Telegram
 - [ ] Po 2-4 týdnech provozu — deaktivovat WordPress na hostingu

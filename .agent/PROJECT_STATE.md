@@ -79,7 +79,6 @@ main
 ## Known Issues
 - Kontaktní formulář čeká na reálný test doručení a ověření cílového e-mailu ve Web3Forms; klíč není commitovaný do Gitu.
 - Hosting nemá SSH, deploy musí jít přes FTP/SFTP, ne git pull na serveru
-- Není ještě definovaná "content map" pro Telegram agenta (který text patří do kterého souboru)
 - Lokální `.env` obsahuje SFTP údaje a míří na testovací složku `/rakli.cz/www/_new`; soubor je ignorovaný Gitem.
 - `npm install` hlásí upozornění, že lokální npm je 9.2.0 a Astro 7 vyžaduje npm >= 9.6.5; build přesto prošel. Před delší prací je vhodné npm aktualizovat.
 - Opakované stahování `page_id` stránek z WordPressu aktuálně blokuje WAF; pro první verzi byl použit obsah dostupný z již stažené homepage a projektových poznámek.
