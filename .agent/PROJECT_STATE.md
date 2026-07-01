@@ -23,6 +23,7 @@ main
 - Lokálně připravená další iterace podle připomínek: šipka nahoru, český formát dat aktualit, lokální inline SVG ikony služeb, zvýraznění aktuálního dne v ordinačních hodinách, dynamický status podle hodin/alertu/status.json, samostatná stránka ceníku `src/pages/cenik.astro`, nové formulářové pole rok narození a select předmětu zprávy.
 - Iterace podle připomínek je nasazená na staging `https://rakli.cz/_new/`; nová stránka ceníku běží na `https://rakli.cz/_new/cenik/`.
 - Aktuální staging status je nastaven na dovolenou: `status.json` state `vacation`, label `Dnes dovolená`, note `Dovolená do 06.07.2026`; `alert.json` je aktivní urgent alert s expirací `2026-07-06`.
+- Poslední staging iterace upravila ceník (tlačítko zpět i nahoře), zjemnila inline SVG ikony služeb a nastavila ordinační hodiny tak, aby časy/konzultace byly tučné pro každý den a pauza byla světlejší inline poznámka.
 
 ## Last Completed Work
 - 2026-06-30
@@ -65,6 +66,7 @@ main
 - Ověřeno: `npm run build` prošel, generují se 3 stránky (`/`, `/dekujeme/`, `/cenik/`); kontrolní skript potvrdil česká data, back-to-top, SVG ikony, dynamický status, link na ceník, rok narození a subject select.
 - Iterace byla nasazená na staging; ověřeno po deployi: `https://rakli.cz/_new/` HTTP 200, `https://rakli.cz/_new/cenik/` HTTP 200, `https://rakli.cz/_new/dekujeme/` HTTP 200, CSS asset HTTP 200, produkční WordPress root zůstal `WordPress 6.9.4`.
 - 2026-07-01: podle požadavku nastaven staging status na dovolenou dle existující aktuality o dovolené MUDr. Klímy do 06.07.2026. Upravené `src/content/status.json` a `src/content/alert.json`, build prošel a deploy na `https://rakli.cz/_new/` ověřený HTTP 200 + live obsah obsahuje `Dnes dovolená` a urgent alert.
+- 2026-07-01: podle dalších připomínek doplněné tlačítko `← Zpět na hlavní stránku` i nahoře na stránce ceníku, zjemněné ikony služeb (tenčí světlejší inline SVG) a upravené ordinační hodiny: všechny časy/konzultace zůstávají tučně, pauzy jsou světlejší přes `.hours-note`. Build prošel, deploy na staging proběhl, ověřeno HTTP 200 pro `/_new/` i `/_new/cenik/`.
 
 ## Next Steps
 1. Ručně zkontrolovat nasazený redesign 2025 na `https://rakli.cz/_new/` na mobilu i desktopu.
