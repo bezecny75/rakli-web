@@ -22,6 +22,8 @@ const primaryEmail = contact.emails[0];
 const telHref = primaryPhone.replaceAll(' ', '');
 const today = new Date().toISOString().split('T')[0];
 const alertVisible = alert.active && (!alert.expires || alert.expires >= today);
+const currentYear = new Date().getFullYear();
+const minBirthYear = currentYear - 100;
 const insuranceBadges = ['111 VZP', '201 VoZP', '207 OZP', '211 ZPMV', '205 ČPZP'];
 const dayIndexes = { 'Pondělí': 1, 'Úterý': 2, 'Středa': 3, 'Čtvrtek': 4, 'Pátek': 5, 'Sobota': 6, 'Neděle': 0 };
 const hoursForClient = hours.map((day) => ({ ...day, dayIndex: dayIndexes[day.day] ?? null }));
@@ -43,12 +45,12 @@ const workflowSteps = [
 	'E-recept pošleme na mobil nebo e-mail.',
 ];
 const serviceIcons = {
-	'Preventivní prohlídky': `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 8v8M8 12h8"/></svg>`,
-	'E-Recepty & Posudky': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h7l3 3v11H8z"/><path d="M15 5v4h4M10.5 13h5M10.5 16h3"/></svg>`,
-	'CRP a INR testy': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4h4M12 4v6M8 20h8M9 10l-3 7a2 2 0 0 0 1.8 3h8.4A2 2 0 0 0 18 17l-3-7"/></svg>`,
-	'EKG a Tlakový Holter': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13h4l1.5-4 3 8 1.5-4h4"/></svg>`,
-	'Očkování': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l4 4-8 8-4-4zM17 7l2-2M7 17l-2 2"/></svg>`,
-	'Závodní péče': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8V6h8v2M6 8h12v11H6zM10 13h4M12 11v4"/></svg>`,
+	'Preventivní prohlídky': '🩺',
+	'E-Recepty & Posudky': '💊',
+	'CRP a INR testy': '🧪',
+	'EKG a Tlakový Holter': '💓',
+	'Očkování': '💉',
+	'Závodní péče': '🏥',
 };
 const formSubjects = [
 	'Žádost o e-recept (stálá medikace)',
@@ -201,7 +203,7 @@ const formSubjects = [
 				<div class="service-grid">
 					{services.map((service) => (
 						<article class="service-card">
-							<span class="service-icon" aria-hidden="true" set:html={serviceIcons[service.title] ?? service.icon}></span>
+							<span class="service-icon" aria-hidden="true">{serviceIcons[service.title] ?? service.icon}</span>
 							<h3>{service.title}</h3>
 							<p>{service.description}</p>
 						</article>
@@ -322,7 +324,7 @@ const formSubjects = [
 					<div id="formular" class="contact-card form-card">
 						<h3>Kontaktní formulář</h3>
 						{web3FormsKey ? (
-							<form action="https://api.web3forms.com/submit" method="POST">
+							<form id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate data-min-birth-year={minBirthYear} data-max-birth-year={currentYear}>
 								<input type="hidden" name="access_key" value={web3FormsKey} />
 								<input type="hidden" name="from_name" value="Web rakli.cz" />
 								<input type="hidden" name="redirect" value={formRedirectUrl} />
@@ -333,15 +335,15 @@ const formSubjects = [
 								</label>
 								<label>
 									E-mail
-									<input type="email" name="email" autocomplete="email" required />
+									<input id="contact-email" type="email" name="email" autocomplete="email" placeholder="např. jmeno@example.cz" />
 								</label>
 								<label>
 									Telefon
-									<input name="phone" autocomplete="tel" />
+									<input id="contact-phone" name="phone" autocomplete="tel" inputmode="tel" pattern="^(\+420)? ?[0-9]{3} ?[0-9]{3} ?[0-9]{3}$" placeholder="např. +420 702 129 150" title="Zadejte české telefonní číslo, např. +420 702 129 150" />
 								</label>
 								<label>
 									Rok narození
-									<input name="birth_year" inputmode="numeric" pattern="[0-9]{4}" placeholder="např. 1975" />
+									<input id="birth-year" name="birth_year" inputmode="numeric" pattern="[0-9]{4}" min={minBirthYear} max={currentYear} placeholder="např. 1975" title={`Rok narození musí být mezi ${minBirthYear} a ${currentYear}.`} />
 								</label>
 								<label>
 									Předmět zprávy
@@ -356,6 +358,7 @@ const formSubjects = [
 								<p class="form-note">
 									Do formuláře neposílejte akutní zdravotní potíže. V urgentních případech volejte záchrannou službu nebo ordinaci telefonicky.
 								</p>
+								<p class="form-error" id="form-error" aria-live="polite"></p>
 								<button class="button primary" type="submit">Odeslat</button>
 							</form>
 						) : (
@@ -458,6 +461,67 @@ const formSubjects = [
 				const day = hoursData.find((item) => item.dayIndex === todayIndex);
 				const open = isOpenNow(day);
 				setStatus(open ? 'open' : 'closed', open ? 'Právě otevřeno' : 'Právě zavřeno');
+			}
+
+			const contactForm = document.getElementById('contact-form');
+			if (contactForm) {
+				const emailInput = document.getElementById('contact-email');
+				const phoneInput = document.getElementById('contact-phone');
+				const birthYearInput = document.getElementById('birth-year');
+				const formError = document.getElementById('form-error');
+				const phonePattern = /^(\+420)? ?[0-9]{3} ?[0-9]{3} ?[0-9]{3}$/;
+				const minBirthYear = Number(contactForm.dataset.minBirthYear || 1900);
+				const maxBirthYear = Number(contactForm.dataset.maxBirthYear || new Date().getFullYear());
+
+				function setFieldValidity(field, message) {
+					if (!field) return;
+					field.setCustomValidity(message);
+				}
+
+				function validateContactForm() {
+					const email = emailInput?.value.trim() || '';
+					const phone = phoneInput?.value.trim() || '';
+					const birthYear = birthYearInput?.value.trim() || '';
+					setFieldValidity(emailInput, '');
+					setFieldValidity(phoneInput, '');
+					setFieldValidity(birthYearInput, '');
+
+					if (!email && !phone) {
+						setFieldValidity(emailInput, 'Vyplňte e-mail nebo telefon.');
+						setFieldValidity(phoneInput, 'Vyplňte telefon nebo e-mail.');
+						return 'Vyplňte prosím e-mail nebo telefonní číslo.';
+					}
+
+					if (phone && !phonePattern.test(phone)) {
+						setFieldValidity(phoneInput, 'Zadejte české telefonní číslo, např. +420 702 129 150.');
+						return 'Telefonní číslo nemá správný formát.';
+					}
+
+					if (birthYear) {
+						const year = Number(birthYear);
+						if (!Number.isInteger(year) || year < minBirthYear || year > maxBirthYear) {
+							setFieldValidity(birthYearInput, `Rok narození musí být mezi ${minBirthYear} a ${maxBirthYear}.`);
+							return `Rok narození musí být mezi ${minBirthYear} a ${maxBirthYear}.`;
+						}
+					}
+
+					if (!contactForm.checkValidity()) {
+						return 'Zkontrolujte prosím zvýrazněná pole.';
+					}
+
+					return '';
+				}
+
+				contactForm.addEventListener('submit', (event) => {
+					const error = validateContactForm();
+					if (error) {
+						event.preventDefault();
+						if (formError) formError.textContent = error;
+						contactForm.reportValidity();
+					} else if (formError) {
+						formError.textContent = '';
+					}
+				});
 			}
 		</script>
 	</body>
@@ -579,8 +643,7 @@ const formSubjects = [
 	.service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
 	.service-card { background: white; border-radius: var(--radius-card); box-shadow: var(--shadow-card); border-top: 3px solid var(--color-primary); padding: 1.5rem; transition: var(--transition); }
 	.service-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
-	.service-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(227, 239, 247, 0.55); color: rgba(27, 108, 168, 0.68); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 0.82rem; font-weight: 700; }
-	.service-icon svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
+	.service-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(227, 239, 247, 0.38); color: rgba(27, 108, 168, 0.78); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1.45rem; line-height: 1; filter: saturate(0.82); }
 
 	.split-section { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2rem; align-items: start; }
 	.info-list { display: grid; gap: 0.75rem; }
@@ -594,7 +657,7 @@ const formSubjects = [
 	.hours-card div { padding: 1rem; }
 	.hours-card p { margin: 0 0 0.55rem; color: var(--color-text); font-size: 0.9rem; font-weight: 700; }
 	.hours-card p:last-child { margin-bottom: 0; }
-	.hours-note { color: var(--color-text-muted); font-size: 0.82rem; font-style: italic; font-weight: 500; }
+	.hours-note { color: #a0aec0; font-size: 0.8rem; font-style: italic; font-weight: 400; }
 
 	.pricing-teaser__box { max-width: 760px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: white; border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: 1.2rem; }
 	.pricing-teaser__box p { margin: 0.25rem 0 0; color: var(--color-text-muted); }
@@ -627,6 +690,7 @@ const formSubjects = [
 	input, textarea, select { width: 100%; border: 1.5px solid var(--color-border); border-radius: 8px; padding: 0.75rem 1rem; font: inherit; background: white; color: var(--color-text); }
 	input:focus, textarea:focus, select:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(15, 76, 117, 0.12); outline: none; }
 	.form-note { color: var(--color-text-muted); font-size: 0.87rem; }
+	.form-error { min-height: 1.2em; margin: -0.2rem 0 0; color: #b91c1c; font-size: 0.87rem; font-weight: 700; }
 	.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
 
 	.custom-footer { background: #1a202c; color: #e2e8f0; }
