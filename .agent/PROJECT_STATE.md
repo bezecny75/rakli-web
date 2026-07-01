@@ -24,6 +24,7 @@ main
 - Iterace podle připomínek je nasazená na staging `https://rakli.cz/_new/`; nová stránka ceníku běží na `https://rakli.cz/_new/cenik/`.
 - Aktuální staging status je nastaven na dovolenou: `status.json` state `vacation`, label `Dnes dovolená`, note `Dovolená do 06.07.2026`; `alert.json` je aktivní urgent alert s expirací `2026-07-06`.
 - Poslední staging iterace upravila ceník (tlačítko zpět i nahoře), zjemnila inline SVG ikony služeb a nastavila ordinační hodiny tak, aby časy/konzultace byly tučné pro každý den a pauza byla světlejší inline poznámka.
+- Formulář na stagingu má zpřísněnou klientskou validaci: jméno required, e-mail nebo telefon povinné aspoň jedno, formát českého telefonu, HTML email validace, rok narození v rozumném rozsahu 100 let; honeypot `botcheck` zůstává jako základní ochrana proti botům. Ikony služeb jsou nahrazené jemnějšími emoji ikonami podobnými horní ikoně.
 
 ## Last Completed Work
 - 2026-06-30
@@ -67,6 +68,7 @@ main
 - Iterace byla nasazená na staging; ověřeno po deployi: `https://rakli.cz/_new/` HTTP 200, `https://rakli.cz/_new/cenik/` HTTP 200, `https://rakli.cz/_new/dekujeme/` HTTP 200, CSS asset HTTP 200, produkční WordPress root zůstal `WordPress 6.9.4`.
 - 2026-07-01: podle požadavku nastaven staging status na dovolenou dle existující aktuality o dovolené MUDr. Klímy do 06.07.2026. Upravené `src/content/status.json` a `src/content/alert.json`, build prošel a deploy na `https://rakli.cz/_new/` ověřený HTTP 200 + live obsah obsahuje `Dnes dovolená` a urgent alert.
 - 2026-07-01: podle dalších připomínek doplněné tlačítko `← Zpět na hlavní stránku` i nahoře na stránce ceníku, zjemněné ikony služeb (tenčí světlejší inline SVG) a upravené ordinační hodiny: všechny časy/konzultace zůstávají tučně, pauzy jsou světlejší přes `.hours-note`. Build prošel, deploy na staging proběhl, ověřeno HTTP 200 pro `/_new/` i `/_new/cenik/`.
+- 2026-07-01: zpřísněná validace kontaktního formuláře a další styling: jméno zůstává required, e-mail/telefon stačí jeden z nich, telefon má český pattern, rok narození min/max 100 let, chybová hláška přes `form-error`; potvrzený honeypot `botcheck`. Služby převedené z tmavých SVG na jemné emoji ikony. Build a deploy na staging prošly; live ověřeno: validační JS, phone pattern, birth year range, honeypot, emoji ikony, světlejší pauzy, CSS asset HTTP 200.
 
 ## Next Steps
 1. Ručně zkontrolovat nasazený redesign 2025 na `https://rakli.cz/_new/` na mobilu i desktopu.
