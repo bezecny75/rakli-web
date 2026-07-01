@@ -2,7 +2,11 @@
   "name": "Rakli s.r.o.",
   "tagline": "Ordinace praktického lékaře pro dospělé",
   "doctor": "MUDr. Radim Klíma",
-  "intro": "Praktická ordinace pro dospělé v Českých Budějovicích. Nový statický web je připravovaný v testovacím režimu, stávající WordPress web zůstává zatím beze změny.",
+  "badge": "Nepřijímáme nové pacienty",
+  "heroTitle": "Moderní péče o vaše zdraví a rodinu.",
+  "intro": "Komplexní služby praktického lékaře s důrazem na prevenci a lidský přístup. Využijte možnosti online objednání a e-receptů bez čekání.",
   "notice": "Pacienty prosíme, aby ordinaci u akutních i neakutních obtíží nejprve kontaktovali telefonicky nebo e-mailem a domluvili další postup.",
+  "buttonText": "Objednat vyšetření",
+  "buttonUrl": "#formular",
   "testMode": true
 }

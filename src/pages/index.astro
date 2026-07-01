@@ -5,6 +5,10 @@ import hours from '../content/hours.json';
 import services from '../content/services.json';
 import news from '../content/news.json';
 import faq from '../content/faq.json';
+import pricing from '../content/pricing.json';
+import about from '../content/about.json';
+import ordering from '../content/ordering.json';
+import vaccination from '../content/vaccination.json';
 
 const baseUrl = import.meta.env.BASE_URL;
 const web3FormsKey = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY;
@@ -34,6 +38,7 @@ const primaryEmail = contact.emails[0];
 			<nav aria-label="Hlavní navigace">
 				<a href="#sluzby">Služby</a>
 				<a href="#hodiny">Ordinační hodiny</a>
+				<a href="#cenik">Ceník</a>
 				<a href="#kontakt">Kontakt</a>
 				<a class="nav-cta" href="#formular">Objednat</a>
 			</nav>
@@ -42,13 +47,13 @@ const primaryEmail = contact.emails[0];
 		<main id="top">
 			<section class="hero">
 				<div class="hero-content">
-					<p class="eyebrow">Testovací verze nového webu</p>
-					<h1>{site.name}</h1>
+					<p class="eyebrow">{site.badge}</p>
+					<h1>{site.heroTitle}</h1>
 					<p class="lead">{site.tagline}</p>
 					<p>{site.intro}</p>
 					<div class="hero-actions">
-						<a class="button primary" href={`tel:${primaryPhone.replaceAll(' ', '')}`}>
-							Zavolat do ordinace
+						<a class="button primary" href={site.buttonUrl}>
+							{site.buttonText}
 						</a>
 						<a class="button secondary" href={`mailto:${primaryEmail}`}>
 							Napsat e-mail
@@ -84,6 +89,20 @@ const primaryEmail = contact.emails[0];
 
 			<section class="section split">
 				<div class="section-head">
+					<p class="eyebrow">Objednání</p>
+					<h2>{ordering.title}</h2>
+					<p>{ordering.body}</p>
+				</div>
+
+				<div class="info-list">
+					{ordering.notes.map((note) => (
+						<div class="info-row">{note}</div>
+					))}
+				</div>
+			</section>
+
+			<section class="section split">
+				<div class="section-head">
 					<p class="eyebrow">Časté dotazy</p>
 					<h2>FAQ</h2>
 				</div>
@@ -94,6 +113,20 @@ const primaryEmail = contact.emails[0];
 							<summary>{item.question}</summary>
 							<p>{item.answer}</p>
 						</details>
+					))}
+				</div>
+			</section>
+
+			<section class="section split">
+				<div class="section-head">
+					<p class="eyebrow">Prevence</p>
+					<h2>{vaccination.title}</h2>
+					<p>{vaccination.body}</p>
+				</div>
+
+				<div class="info-list">
+					{vaccination.items.map((item) => (
+						<div class="info-row">{item}</div>
 					))}
 				</div>
 			</section>
@@ -137,6 +170,26 @@ const primaryEmail = contact.emails[0];
 				</div>
 			</section>
 
+			<section id="cenik" class="section">
+				<div class="section-head">
+					<p class="eyebrow">Placené úkony</p>
+					<h2>Ceník</h2>
+					<p>Platnost od 1.1.2026. Jedná se o úkony nehrazené zdravotními pojišťovnami.</p>
+				</div>
+
+				<div class="price-list">
+					{pricing.map((item) => (
+						<div class="price-row">
+							<div>
+								<strong>{item.title}</strong>
+								{item.note && <p>{item.note}</p>}
+							</div>
+							<span>{item.price}</span>
+						</div>
+					))}
+				</div>
+			</section>
+
 			<section id="kontakt" class="section contact-section">
 				<div class="section-head">
 					<p class="eyebrow">Kontakt</p>
@@ -145,8 +198,16 @@ const primaryEmail = contact.emails[0];
 
 				<div class="contact-grid">
 					<div class="contact-card">
+						<h3>{about.title}</h3>
+						<p>{about.body}</p>
+						<ul class="team-list">
+							{about.team.map((person) => <li>{person}</li>)}
+						</ul>
+					</div>
+
+					<div class="contact-card">
 						<h3>{site.name}</h3>
-						<p>{site.doctor}</p>
+						<p>{contact.note}</p>
 						<address>
 							{contact.address.street}<br />
 							{contact.address.city}
@@ -454,8 +515,41 @@ const primaryEmail = contact.emails[0];
 	}
 
 	.hours-row ul,
-	.contact-list {
+	.contact-list,
+	.team-list {
 		padding-left: 18px;
+	}
+
+	.info-list,
+	.price-list {
+		display: grid;
+		gap: 12px;
+	}
+
+	.info-row,
+	.price-row {
+		padding: 18px 20px;
+		background: var(--surface);
+		border: 1px solid var(--line);
+		border-radius: 22px;
+	}
+
+	.price-row {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		gap: 18px;
+		align-items: start;
+	}
+
+	.price-row p {
+		margin-bottom: 0;
+		color: var(--muted);
+	}
+
+	.price-row span {
+		color: #ffffff;
+		font-weight: 900;
+		white-space: nowrap;
 	}
 
 	details {
@@ -516,7 +610,8 @@ const primaryEmail = contact.emails[0];
 		.news-list,
 		.service-grid,
 		.contact-grid,
-		.hours-row {
+		.hours-row,
+		.price-row {
 			grid-template-columns: 1fr;
 		}
 

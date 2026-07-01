@@ -1,22 +1,32 @@
 [
   {
     "icon": "+",
-    "title": "Praktická péče",
-    "description": "Běžná péče praktického lékaře pro dospělé, prevence, konzultace zdravotního stavu a návazná doporučení."
+    "title": "Preventivní prohlídky",
+    "description": "Pravidelné kontroly zdravotního stavu hrazené pojišťovnou každé 2 roky. Laboratorní odběry a EKG."
   },
   {
     "icon": "Rx",
-    "title": "Recepty a medikace",
-    "description": "Žádosti o recepty je možné řešit přes kontaktní e-mail ordinace nebo telefonicky podle aktuální situace."
+    "title": "E-Recepty & Posudky",
+    "description": "Vystavování elektronických receptů na dálku pro stabilní pacienty. Potvrzení pro řidičské průkazy."
   },
   {
-    "icon": "!",
-    "title": "Akutní obtíže",
-    "description": "Při akutních obtížích kontaktujte ordinaci předem, aby bylo možné domluvit vhodný postup a čas návštěvy."
+    "icon": "CRP",
+    "title": "CRP a INR testy",
+    "description": "Rychlé stanovení zánětlivých parametrů a srážlivosti krve z kapky krve na počkání."
+  },
+  {
+    "icon": "EKG",
+    "title": "EKG a Tlakový Holter",
+    "description": "Diagnostika srdeční činnosti přímo v ordinaci bez nutnosti návštěvy specializovaného kardiologa."
   },
   {
     "icon": "V",
     "title": "Očkování",
-    "description": "Informace k očkování a dostupným termínům budou průběžně doplněny do samostatné obsahové sekce."
+    "description": "Aplikace povinných i nepovinných vakcín, například chřipka, tetanus nebo klíšťová encefalitida, a konzultace."
+  },
+  {
+    "icon": "PLS",
+    "title": "Závodní péče",
+    "description": "Pracovně-lékařské služby pro firmy. Vstupní, periodické a výstupní prohlídky zaměstnanců."
   }
 ]

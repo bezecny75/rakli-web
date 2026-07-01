@@ -35,11 +35,14 @@ main
 - Grafika náhledu byla upravena podle referenční stránky `https://www.rakli.cz/?page_id=948#ordinacni-hodiny`: tmavý one-page styl, CTA `Objednat`, karty služeb, FAQ plus/minus a výrazné zaoblené bloky.
 - Review přes `BEZI-ReviewerTest` pro grafickou úpravu: PROŠLO bez nálezů.
 - Graficky upravený build byl nasazen do `https://rakli.cz/_new/`; ověřeno HTTP 200 pro stránku i CSS asset.
+- Uživatel dodal WordPress export `raklisro.WordPress.2026-07-01.xml`; obsah byl namapován do `src/content/*.json`.
+- Doplněné nové content soubory: `about.json`, `ordering.json`, `vaccination.json`; rozšířený `pricing.json`, `news.json`, `services.json`, `hours.json`, `faq.json`.
+- Review přes `BEZI-ReviewerTest` pro mapování WP exportu: PROŠLO bez nálezů.
 
 ## Next Steps
-1. Doplnit přesnější obsah z dalších podstránek WordPressu, až nebude blokovat WAF nebo budou dodané exporty.
-2. Doplnit Web3Forms access key do `.env` a otestovat odeslání formuláře.
-3. Doladit detaily podle ručního testu uživatele na `https://rakli.cz/_new/`.
+1. Nasadit obsahově doplněný build do `/_new/` a ověřit HTTP.
+2. Zkontrolovat ručně namapovaný obsah na `https://rakli.cz/_new/`.
+3. Doplnit Web3Forms access key do `.env` a otestovat odeslání formuláře.
 
 ## Known Issues
 - Kontaktní formulář nemá vlastní backend, jen WP mail — musí se nahradit před vypnutím WP

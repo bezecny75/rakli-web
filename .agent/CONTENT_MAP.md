@@ -9,7 +9,16 @@ Tento soubor říká agentům, kde upravovat jednotlivé části webu.
 - Aktuality: `src/content/news.json`
 - FAQ: `src/content/faq.json`
 - Ceník: `src/content/pricing.json`
+- O nás / tým ordinace: `src/content/about.json`
+- Objednávání: `src/content/ordering.json`
+- Očkování: `src/content/vaccination.json`
 - Hlavní layout a vizuální struktura: `src/pages/index.astro`
+
+Zdroj posledního mapování obsahu:
+
+- WordPress export: `/home/bezi/.local/state/agent2telegram/attachments/raklisro.WordPress.2026-07-01.xml`
+- ACF homepage `page_id=948`: hero, služby, FAQ, ordinační hodiny, referenční grafika
+- Starší WP stránky: aktuality, ceník, objednávání, očkování, kontakt, o nás
 
 Pravidlo:
 

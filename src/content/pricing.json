@@ -1,6 +1,61 @@
 [
   {
-    "title": "Ceník placených úkonů",
-    "description": "Ceník bude migrován ze stávajícího webu do samostatného strukturovaného obsahu."
+    "title": "Vstupní prohlídka do zaměstnání",
+    "price": "1000 Kč"
+  },
+  {
+    "title": "Periodická prohlídka do zaměstnání",
+    "price": "1000 Kč"
+  },
+  {
+    "title": "Vyšetření pro vystavení řidičského průkazu",
+    "price": "1000 Kč"
+  },
+  {
+    "title": "Vyšetření řidiče po 70. roce věku",
+    "price": "800 Kč"
+  },
+  {
+    "title": "Vyšetření pro vydání či prodloužení zbrojního průkazu",
+    "price": "1000 Kč"
+  },
+  {
+    "title": "Úrazové pojistky, trvalé následky úrazu",
+    "price": "500-1000 Kč",
+    "note": "Dle rozsahu."
+  },
+  {
+    "title": "Bolestné a ztížené společenské uplatnění",
+    "price": "1000 Kč"
+  },
+  {
+    "title": "Potvrzení na vlastní žádost / administrativní úkon",
+    "price": "200-500 Kč",
+    "note": "Dle rozsahu."
+  },
+  {
+    "title": "Návrh na lázeňskou péči",
+    "price": "400 Kč"
+  },
+  {
+    "title": "Výpis z dokumentace do 10 pracovních dnů",
+    "price": "500 Kč"
+  },
+  {
+    "title": "Výpis z dokumentace expres do 2 pracovních dnů",
+    "price": "1000 Kč"
+  },
+  {
+    "title": "Aplikace nepovinné očkovací látky",
+    "price": "300 Kč + cena očkovací látky"
+  },
+  {
+    "title": "Předoperační vyšetření pro výkon nehrazený pojišťovnou",
+    "price": "1500 Kč",
+    "note": "Včetně EKG, bez laboratorních odběrů."
+  },
+  {
+    "title": "Kopírování na žádost pacienta",
+    "price": "50 Kč / 1 stránka"
   }
 ]

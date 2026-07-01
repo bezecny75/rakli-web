@@ -28,7 +28,10 @@
 - [x] Provést review grafické úpravy přes `BEZI-ReviewerTest`
 - [x] Nasadit graficky upravený build do `/_new/`
 - [x] Ověřit po deployi `https://rakli.cz/_new/`, CSS asset a hlavní WordPress
-- [ ] Doplnit přesnější obsah z dalších WordPress podstránek nebo exportu
+- [x] Doplnit přesnější obsah z dalších WordPress podstránek nebo exportu
+- [x] Namapovat WordPress export do obsahových sekcí
+- [x] Provést review namapování obsahu přes `BEZI-ReviewerTest`
+- [ ] Nasadit obsahově doplněný build do `/_new/`
 - [ ] Zazálohovat WP DB + soubory před ostrým přepnutím
 - [ ] Ostrý deploy na produkci
 - [ ] Napojit repo do agent2telegram bridge

@@ -1,14 +1,14 @@
 [
   {
-    "question": "Mám přijít do ordinace bez objednání?",
-    "answer": "U akutních i neakutních obtíží ordinaci nejprve kontaktujte telefonicky nebo e-mailem a domluvte další postup."
+    "question": "Berete nové pacienty?",
+    "answer": "Bohužel ne, ordinace aktuálně nepřijímá nové pacienty."
   },
   {
-    "question": "Kam psát kvůli receptům?",
-    "answer": "Pro recepty je na stávajícím webu uveden kontakt recepty@rakli.cz."
+    "question": "Jak funguje eRecept?",
+    "answer": "Recept lze zaslat elektronicky SMS nebo e-mailem. Stabilní pacienti mohou požadavky na recepty řešit také e-mailem."
   },
   {
-    "question": "Je nový web už produkční?",
-    "answer": "Ne. Verze v /_new/ je pouze testovací náhled. Ostrý web stále běží na WordPressu."
+    "question": "Jak se objednat?",
+    "answer": "Objednání probíhá telefonicky u sester nebo přes připravovaný kontaktní formulář. Bez předchozího kontaktu do ordinace nechoďte."
   }
 ]

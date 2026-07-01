@@ -2,28 +2,29 @@
   {
     "day": "Pondělí",
     "items": [
-      "07:30 - 13:00 ordinace",
-      "10:30 - 11:00 pauza",
+      "07:30 - 13:00 (10:30 - 11:00 pauza)",
       "13:00 - 14:00 telefonické konzultace"
     ]
   },
   {
     "day": "Úterý",
     "items": [
-      "13:00 - 18:00 ordinace",
-      "15:30 - 16:00 pauza"
-    ]
+      "13:00 - 18:00 (15:30 - 16:00 pauza)"
+    ],
+    "highlight": true
   },
   {
     "day": "Středa",
     "items": [
+      "07:30 - 13:00 (10:30 - 11:00 pauza)",
       "13:00 - 15:00 telefonické konzultace"
     ]
   },
   {
     "day": "Čtvrtek",
     "items": [
-      "Dle objednání a aktuálního provozu ordinace"
+      "07:30 - 13:00 (10:30 - 11:00 pauza)",
+      "13:00 - 15:00 telefonické konzultace"
     ]
   },
   {
