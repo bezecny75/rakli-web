@@ -20,6 +20,7 @@ main
 - Lokálně připraven redesign 2025 podle `DESIGNE_PROMT.md`: světlý healthcare vizuál, top bar, sticky header, hero s foto placeholderem, trust bar, workflow sekce, přepracované karty/služby/hodiny/ceník/FAQ/kontakt/footer, bez JS knihoven.
 - Přidané content soubory `src/content/status.json` a `src/content/alert.json`; `.agent/CONTENT_MAP.md` rozšířený o jejich mapování.
 - Redesign 2025 je nasazený na staging `https://rakli.cz/_new/`; produkční WordPress na rootu zůstává nedotčený.
+- Lokálně připravená další iterace podle připomínek: šipka nahoru, český formát dat aktualit, lokální inline SVG ikony služeb, zvýraznění aktuálního dne v ordinačních hodinách, dynamický status podle hodin/alertu/status.json, samostatná stránka ceníku `src/pages/cenik.astro`, nové formulářové pole rok narození a select předmětu zprávy.
 
 ## Last Completed Work
 - 2026-06-30
@@ -58,6 +59,8 @@ main
 - Redesign 2025 byl nasazený na staging `https://rakli.cz/_new/`.
 - Ověřeno po deployi: `https://rakli.cz/_new/` HTTP 200, `https://rakli.cz/_new/dekujeme/` HTTP 200, CSS asset HTTP 200, stránka obsahuje nové design komponenty (`top-bar`, status badge, workflow), nemá interní foto placeholder a Web3Forms redirect míří na `https://rakli.cz/_new/dekujeme/`.
 - Produkční WordPress na `https://www.rakli.cz/` zůstal nedotčený; ověřený meta generator `WordPress 6.9.4`.
+- Zapracovaná další lokální iterace podle připomínek: back-to-top kotva, český formát dat aktualit, inline SVG ikony služeb bez externí knihovny, aktuální den v ordinačních hodinách podle prohlížeče, dynamický status badge, samostatná stránka ceníku, rozšířený kontaktní formulář o rok narození a výběr předmětu.
+- Ověřeno: `npm run build` prošel, generují se 3 stránky (`/`, `/dekujeme/`, `/cenik/`); kontrolní skript potvrdil česká data, back-to-top, SVG ikony, dynamický status, link na ceník, rok narození a subject select.
 
 ## Next Steps
 1. Ručně zkontrolovat nasazený redesign 2025 na `https://rakli.cz/_new/` na mobilu i desktopu.

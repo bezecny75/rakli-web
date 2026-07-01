@@ -14,6 +14,10 @@
 - [x] Rozšířit `.agent/CONTENT_MAP.md` o status/alert
 - [x] Ověřit redesign přes `npm run build`
 - [x] Schválit a nasadit redesign 2025 na staging `/_new/`
+- [x] Připravit lokální iteraci podle připomínek k redesignu
+- [x] Přidat samostatnou stránku ceníku `src/pages/cenik.astro`
+- [x] Ověřit iteraci přes `npm run build`
+- [ ] Nasadit iteraci podle připomínek na staging `/_new/`
 - [ ] Ručně zkontrolovat redesign 2025 na stagingu `https://rakli.cz/_new/`
 - [ ] Stáhnout a optimalizovat obrázky z wp-content/uploads
 - [x] Postavit první layout/sekce webu pro testovací náhled

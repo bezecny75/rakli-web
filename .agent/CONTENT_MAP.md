@@ -8,7 +8,8 @@ Tento soubor říká agentům, kde upravovat jednotlivé části webu.
 - Služby / karty zdravotní péče: `src/content/services.json`
 - Aktuality: `src/content/news.json`
 - FAQ: `src/content/faq.json`
-- Ceník: `src/content/pricing.json`
+- Ceník data: `src/content/pricing.json`
+- Ceník stránka/layout: `src/pages/cenik.astro`
 - O nás / tým ordinace: `src/content/about.json`
 - Objednávání: `src/content/ordering.json`
 - Očkování: `src/content/vaccination.json`
