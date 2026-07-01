@@ -1,7 +1,7 @@
 {
-  "state": "open",
-  "label": "Dnes otevřeno",
-  "note": "",
+  "state": "vacation",
+  "label": "Dnes dovolená",
+  "note": "Dovolená do 06.07.2026",
   "updated": "2026-07-01",
   "_states": {
     "open": "zelená — ordinace je otevřena normálně",

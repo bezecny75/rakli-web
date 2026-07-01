@@ -1,8 +1,8 @@
 {
-  "active": false,
-  "type": "info",
-  "message": "Ordinace bude uzavřena 28.–30. 7. 2026 (dovolená). Akutní případy: 155.",
-  "expires": "2026-07-30",
+  "active": true,
+  "type": "urgent",
+  "message": "Ordinace má dnes dovolenou. Dovolená MUDr. Klímy trvá do 06.07.2026; v ordinaci jsou v některých dnech přítomny sestry.",
+  "expires": "2026-07-06",
   "_types": {
     "info": "modrá — neutrální sdělení (změna hodin, nová sestra, organizační info)",
     "warning": "oranžová — pozor (zkrácená provozní doba, výpadek telefonu)",
