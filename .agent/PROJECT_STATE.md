@@ -44,10 +44,11 @@ main
 - Přidaná děkovací stránka `src/pages/dekujeme.astro`; kontrolní build s dočasným klíčem ověřil aktivní formulář a redirect na `https://rakli.cz/_new/dekujeme/`.
 - Review přes `BEZI-ReviewerTest` pro kontaktní formulář: PROŠLO bez nálezů.
 - Formulářový build byl nasazen do `https://rakli.cz/_new/`; živý staging obsahuje aktivní formulář a `https://rakli.cz/_new/dekujeme/` vrací HTTP 200.
+- Serverový test odeslání přes `curl` nelze použít: Web3Forms vrací 403 s informací, že metoda je povolená jen klientsky z prohlížeče. Reálný test doručení je potřeba provést ručně na staging stránce.
 
 ## Next Steps
 1. Zkontrolovat ručně namapovaný obsah na `https://rakli.cz/_new/`.
-2. Otestovat reálné doručení formuláře z `https://rakli.cz/_new/` a ověřit cílový e-mail ve Web3Forms.
+2. Otestovat reálné doručení formuláře z prohlížeče na `https://rakli.cz/_new/` a ověřit cílový e-mail ve Web3Forms.
 3. Stáhnout a optimalizovat použitelné obrázky z `wp-content/uploads`, pokud je budeme chtít použít v nové grafice.
 
 ## Known Issues

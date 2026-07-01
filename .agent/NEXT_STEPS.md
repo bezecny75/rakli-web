@@ -15,7 +15,7 @@
 - [x] Provést review kontaktního formuláře přes `BEZI-ReviewerTest`
 - [x] Doplnit Web3Forms access key do lokálního `.env`
 - [x] Nasadit aktivní formulář na staging `/_new/`
-- [ ] Otestovat doručení mailu z formuláře
+- [ ] Otestovat doručení mailu z formuláře ručně v prohlížeči
 - [x] Doplnit skutečné SFTP přístupy do necommitovaného `.env`
 - [x] Nastavit testovací deploy cíl na `/rakli.cz/www/_new`
 - [x] Ověřit SFTP přístup do testovací složky
