@@ -29,6 +29,7 @@ const formatCzechDate = (value) => {
 	const [year, month, day] = value.split('-');
 	return `${day}.${month}.${year}`;
 };
+const formatHourItem = (value) => value.replace(/\(([^)]+)\)/g, '<span class="hours-note">($1)</span>');
 const trustItems = [
 	'✓ Smluvní pojišťovny VZP, VoZP, OZP, ZPMV, ČPZP',
 	'✓ EKG & Holter v ordinaci',
@@ -42,12 +43,12 @@ const workflowSteps = [
 	'E-recept pošleme na mobil nebo e-mail.',
 ];
 const serviceIcons = {
-	'Preventivní prohlídky': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.5-9-10a5.5 5.5 0 0 1 9-6 5.5 5.5 0 0 1 9 6c-2 5.5-9 10-9 10Z"/><path d="M8 12h3l1-3 2 6 1-3h3"/></svg>`,
-	'E-Recepty & Posudky': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h5"/></svg>`,
-	'CRP a INR testy': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 3h4v5l4 8a4 4 0 0 1-3.6 5.7H9.6A4 4 0 0 1 6 16l4-8z"/><path d="M8 16h8"/></svg>`,
-	'EKG a Tlakový Holter': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h4l2-5 4 10 2-5h4"/><path d="M5 5h14v14H5z"/></svg>`,
-	'Očkování': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4l5 5-9 9-5-5z"/><path d="M4 20l4-4M14 5l5 5M7 10l3 3"/></svg>`,
-	'Závodní péče': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6V4h6v2h4v14H5V6z"/><path d="M10 13h4M12 11v4"/></svg>`,
+	'Preventivní prohlídky': `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 8v8M8 12h8"/></svg>`,
+	'E-Recepty & Posudky': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h7l3 3v11H8z"/><path d="M15 5v4h4M10.5 13h5M10.5 16h3"/></svg>`,
+	'CRP a INR testy': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4h4M12 4v6M8 20h8M9 10l-3 7a2 2 0 0 0 1.8 3h8.4A2 2 0 0 0 18 17l-3-7"/></svg>`,
+	'EKG a Tlakový Holter': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13h4l1.5-4 3 8 1.5-4h4"/></svg>`,
+	'Očkování': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l4 4-8 8-4-4zM17 7l2-2M7 17l-2 2"/></svg>`,
+	'Závodní péče': `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8V6h8v2M6 8h12v11H6zM10 13h4M12 11v4"/></svg>`,
 };
 const formSubjects = [
 	'Žádost o e-recept (stálá medikace)',
@@ -232,7 +233,7 @@ const formSubjects = [
 						<article class="hours-card" data-day-index={dayIndexes[day.day] ?? ''}>
 							<h3>{day.day}</h3>
 							<div>
-								{day.items.map((item) => <p>{item}</p>)}
+								{day.items.map((item) => <p set:html={formatHourItem(item)}></p>)}
 							</div>
 						</article>
 					))}
@@ -578,8 +579,8 @@ const formSubjects = [
 	.service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
 	.service-card { background: white; border-radius: var(--radius-card); box-shadow: var(--shadow-card); border-top: 3px solid var(--color-primary); padding: 1.5rem; transition: var(--transition); }
 	.service-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
-	.service-icon { width: 48px; height: 48px; border-radius: 50%; background: var(--color-primary-light); color: var(--color-primary); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 0.82rem; font-weight: 800; }
-	.service-icon svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+	.service-icon { width: 48px; height: 48px; border-radius: 50%; background: rgba(227, 239, 247, 0.55); color: rgba(27, 108, 168, 0.68); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 0.82rem; font-weight: 700; }
+	.service-icon svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
 
 	.split-section { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 2rem; align-items: start; }
 	.info-list { display: grid; gap: 0.75rem; }
@@ -592,7 +593,8 @@ const formSubjects = [
 	.hours-card.is-highlighted h3 { background: var(--color-accent); }
 	.hours-card div { padding: 1rem; }
 	.hours-card p { margin: 0 0 0.55rem; color: var(--color-text); font-size: 0.9rem; font-weight: 700; }
-	.hours-card p:last-child { margin-bottom: 0; color: var(--color-text-muted); font-size: 0.8rem; font-style: italic; font-weight: 500; }
+	.hours-card p:last-child { margin-bottom: 0; }
+	.hours-note { color: var(--color-text-muted); font-size: 0.82rem; font-style: italic; font-weight: 500; }
 
 	.pricing-teaser__box { max-width: 760px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; background: white; border-radius: var(--radius-card); box-shadow: var(--shadow-card); padding: 1.2rem; }
 	.pricing-teaser__box p { margin: 0.25rem 0 0; color: var(--color-text-muted); }
