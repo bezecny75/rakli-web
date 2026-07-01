@@ -38,11 +38,13 @@ main
 - Uživatel dodal WordPress export `raklisro.WordPress.2026-07-01.xml`; obsah byl namapován do `src/content/*.json`.
 - Doplněné nové content soubory: `about.json`, `ordering.json`, `vaccination.json`; rozšířený `pricing.json`, `news.json`, `services.json`, `hours.json`, `faq.json`.
 - Review přes `BEZI-ReviewerTest` pro mapování WP exportu: PROŠLO bez nálezů.
+- Obsahově doplněný build byl nasazen do `https://rakli.cz/_new/`.
+- Ověřeno po deployi: `https://rakli.cz/_new/` vrací HTTP 200, CSS asset vrací HTTP 200, kořen `https://rakli.cz/` po redirectu stále běží na WordPressu (`WordPress 6.9.4`).
 
 ## Next Steps
-1. Nasadit obsahově doplněný build do `/_new/` a ověřit HTTP.
-2. Zkontrolovat ručně namapovaný obsah na `https://rakli.cz/_new/`.
-3. Doplnit Web3Forms access key do `.env` a otestovat odeslání formuláře.
+1. Zkontrolovat ručně namapovaný obsah na `https://rakli.cz/_new/`.
+2. Doplnit Web3Forms access key do `.env` a otestovat odeslání formuláře.
+3. Stáhnout a optimalizovat použitelné obrázky z `wp-content/uploads`, pokud je budeme chtít použít v nové grafice.
 
 ## Known Issues
 - Kontaktní formulář nemá vlastní backend, jen WP mail — musí se nahradit před vypnutím WP
