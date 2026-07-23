@@ -52,5 +52,5 @@
 - [ ] Ostrý deploy na produkci
 - [ ] Napojit repo do agent2telegram bridge
 - [x] Definovat content map (text → soubor) pro agenta
-- [ ] Otestovat 3 reálné scénáře úprav přes Telegram
+- [ ] Otestovat 3 reálné scénáře úprav přes Telegram (1. scénář: odstranění skončené dovolené z homepage nasazeno na staging)
 - [ ] Po 2-4 týdnech provozu — deaktivovat WordPress na hostingu

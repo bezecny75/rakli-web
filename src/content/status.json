@@ -1,8 +1,8 @@
 {
-  "state": "vacation",
-  "label": "Dnes dovolená",
-  "note": "Dovolená do 06.07.2026",
-  "updated": "2026-07-01",
+  "state": "open",
+  "label": "Dnes ordinujeme",
+  "note": "",
+  "updated": "2026-07-23",
   "_states": {
     "open": "zelená — ordinace je otevřena normálně",
     "limited": "oranžová — omezený provoz (jen tel. konzultace, jen odběry apod.)",

@@ -1,8 +1,8 @@
 {
-  "active": true,
-  "type": "urgent",
-  "message": "Ordinace má dnes dovolenou. Dovolená MUDr. Klímy trvá do 06.07.2026; v ordinaci jsou v některých dnech přítomny sestry.",
-  "expires": "2026-07-06",
+  "active": false,
+  "type": "info",
+  "message": "Aktuální provoz ordinace se řídí ordinačními hodinami.",
+  "expires": null,
   "_types": {
     "info": "modrá — neutrální sdělení (změna hodin, nová sestra, organizační info)",
     "warning": "oranžová — pozor (zkrácená provozní doba, výpadek telefonu)",
